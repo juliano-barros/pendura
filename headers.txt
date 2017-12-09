@@ -1,0 +1,9 @@
+HTTP/1.1 419 unknown status
+Date: Sat, 09 Dec 2017 13:16:54 GMT
+Server: Apache/2.4.26 (Win32) OpenSSL/1.0.2l PHP/7.1.7
+X-Powered-By: PHP/7.1.7
+Cache-Control: no-cache, private
+Set-Cookie: laravel_session=eyJpdiI6IjhXZU5UajI1TWtPRkxXQ3M1SVBoK1E9PSIsInZhbHVlIjoiYWZybThiXC95NmhtQ2xDSkhKU1JmT0tqUWxLRWM4eEQ3cW43RHdkcG94VVBvaDRHS05wY1ZkXC8rb2c3ejNZWXlQU2lMVWFMSDFpR3R3a0FMWkZkQmYyUT09IiwibWFjIjoiM2RiNTk5ZjE5MTkyOTY2ZTAyZWM0NTBhMmY4OWUwYmU0N2YyODY0NDk0ZjkwODA0OThlNjI4ODczZDEyODBlOCJ9; expires=Sat, 09-Dec-2017 15:16:57 GMT; Max-Age=7200; path=/; HttpOnly
+Content-Length: 1518
+Content-Type: text/html; charset=UTF-8
+

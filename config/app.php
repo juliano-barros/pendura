@@ -167,7 +167,9 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */

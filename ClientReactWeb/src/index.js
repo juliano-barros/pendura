@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 
 import App from './components/app';
+import LoginIndex from './components/login/login_index';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
@@ -15,7 +16,7 @@ ReactDOM.render(
 	<BrowserRouter>
   		<div>
 			<Switch>
-				<Route path="/" component={App} />
+				<Route path="/login" component={LoginIndex} />
 			</Switch>
   		</div>
   	</BrowserRouter>
