@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { loginRequest } from '../../actions/login_actions';
+import { loginRequest, loadStorage } from '../../actions/login_actions';
 
 
 class LoginIndex extends Component{
 
+	componentWillMount(){
+		this.props.loadStorage((data)=>{
+			if ( data.token != ''){
+				this.props.history.push('/home');
+			}
+		})
+	}
 
   	renderField(field){
 
@@ -31,12 +39,10 @@ class LoginIndex extends Component{
 
 	onSubmit(values){
 		this.props.loginRequest(values,(data)=>{
-			console.log(data)
-		})
-
+			this.props.history.push('/home');
+		});
 	}
 		
-
 	render(){
 		
 		const { handleSubmit } = this.props;
@@ -57,8 +63,7 @@ class LoginIndex extends Component{
 	            name="password"
 	            component ={this.renderField}
 	          />
-	          <button type="submit" className="btn btn-primary">Submit</button>
-	          <Link to="/" className="btn btn-danger"> Cancel </Link>
+	          <button type="submit" className="btn btn-primary">Login</button>
 
 	        </form>
 
@@ -72,8 +77,8 @@ function validate(values){
 
       const errors={};
 
-      if (!values.username){
-        errors.username = "Usuário não informado";
+      if (!values.email){
+        errors.email = "E-mail não informado";
       }
 
       if (!values.password){
@@ -91,5 +96,5 @@ export default reduxForm({
   validate,
   form: 'LoginIndexForm'
 })(
-  connect(null,{loginRequest})(LoginIndex)
+  connect(null,{loginRequest, loadStorage})(LoginIndex)
 );
