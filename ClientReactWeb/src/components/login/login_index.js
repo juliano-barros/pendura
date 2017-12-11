@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { loginRequest, loadStorage } from '../../actions/login_actions';
+import { loginRequest, loadToken } from '../../actions/login_actions';
 
 
 class LoginIndex extends Component{
 
 	componentWillMount(){
-		this.props.loadStorage((data)=>{
-			if ( data.token != ''){
-				this.props.history.push('/home');
+		this.props.loadToken((data)=>{
+		 	if ( data.token != ''){
+    			console.log(data);
+		 		this.props.history.push('/home');
 			}
 		})
 	}
@@ -96,5 +97,5 @@ export default reduxForm({
   validate,
   form: 'LoginIndexForm'
 })(
-  connect(null,{loginRequest, loadStorage})(LoginIndex)
+  connect(null,{loginRequest, loadToken})(LoginIndex)
 );

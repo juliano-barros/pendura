@@ -56,10 +56,9 @@ class LoginProxy
      * Attempt to refresh the access token used a refresh token that
      * has been saved in a cookie
      */
-    public function attemptRefresh()
+    public function attemptRefresh($refresh_token)
     {
-        $refreshToken = $this->request->cookie(self::REFRESH_TOKEN);
-
+        $refreshToken = $refresh_token;
         return $this->proxy('refresh_token', [
             'refresh_token' => $refreshToken
         ]);
@@ -82,11 +81,11 @@ class LoginProxy
         $response = $this->apiConsumer->post('/oauth/token', $data);
 
         if (!$response->isSuccessful()) {
+            dd($response->getContent());
             throw new InvalidCredentialsException();
         }
 
         $data = json_decode($response->getContent());
-
         // Create a refresh token cookie
         $this->cookie->queue(
             self::REFRESH_TOKEN,
@@ -108,7 +107,7 @@ class LoginProxy
      * Logs out the user. We revoke access token and refresh token.
      * Also instruct the client to forget the refresh cookie.
      */
-    public function logout()
+    public function logout($refresh_token)
     {
         $accessToken = $this->auth->user()->token();
 

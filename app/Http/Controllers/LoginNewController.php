@@ -36,4 +36,9 @@ class LoginNewController extends Controller
 
         return response(null, 204);
     }
+
+    public function isAlive(){
+        return response( json_encode(array('result' => true)), 200 );
+    }
+
 }

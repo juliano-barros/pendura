@@ -4,14 +4,9 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginRequest } from '../../actions/home_actions';
 
-
 class HomeIndex extends Component{
 
 	componentDidMount(){
-		const {login} = this.props;
-		if ( ( ! login.token ) || ( login.token == '' ) ){
-			this.props.history.push('/login');
-		}
 
 	}
 
