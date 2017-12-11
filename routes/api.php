@@ -22,5 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/login', 'LoginNewController@login');
 Route::post('/login/refresh', 'LoginNewController@refresh');
-Route::post('/login/isAlive', 'LoginNewController@isAlive');
+Route::middleware('auth:api')->post('/login/isAlive', 'LoginNewController@isAlive');
 
