@@ -18,25 +18,33 @@ function saveStorage(token, user){
 
 export function loginRequest(values, callback){
 
-	const request = RequestUtil.request( `${URL_LOGIN}`, values, null, POST);
+	const request = RequestUtil.request( `${URL_LOGIN}`, values, {}, POST);
 
 	return (dispatch) => {
 		request.then((data)=>{
 				dispatch({type: LOGIN_REQUEST, payload: data, values});
 				saveStorage( data.data.access_token, values.email );
 				callback(data);
+			}).catch((data) => {
+				console.log("catch loginRequest");
+				console.log(data);
+				RequestUtil.resetToken(data.status)
 			});		
 	}
 }
 
 export function loadToken(callback){
 
-	const request =  RequestUtil.request( `${URL_IS_ALIVE}`, null, { Accept : 'application/json', Authorization : `Bearer ${localStorage.token}` }, POST);
+	const request =  RequestUtil.request( `${URL_IS_ALIVE}`, null, {}, POST);
 
 	return (dispatch)=>{
 		request.then((data)=>{
-			dispatch({type: LOGIN_LOAD_TOKEN, payload: data })
+			dispatch({type: LOGIN_LOAD_TOKEN, payload: {access_token: localStorage.token, user : localStorage.user} })
 			callback(data);
+		}).catch((error) => {
+			console.log("catch loadtoken");
+			console.log({error});
+			RequestUtil.resetToken(data.status)
 		});
 	}
 }

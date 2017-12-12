@@ -9,7 +9,6 @@ export default function(state={},action){
 		case LOGIN_REFRESH:
 		  	return {...state};
 		case LOGIN_LOAD_TOKEN:
-			console.log(state);
 		  	return {...state, token : action.payload.access_token, user: action.payload.user };
 		default  :
 			return state;

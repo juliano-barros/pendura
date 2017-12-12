@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { loginRequest } from '../../actions/home_actions';
+import { loadToken } from '../../actions/login_actions';
 
 class HomeIndex extends Component{
-
-	componentDidMount(){
-
+	componentWillMount(){
+		this.props.loadToken((data)=>{
+		})
 	}
-
 	renderUser(){
 		if ( this.props.login.user){
 			return(
@@ -38,4 +37,4 @@ function mapStateToProps({login}){
 	return { login };
 }
 
-export default connect(mapStateToProps)(HomeIndex);
+export default connect(mapStateToProps, {loadToken})(HomeIndex);

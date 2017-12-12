@@ -11,7 +11,6 @@ class LoginIndex extends Component{
 	componentWillMount(){
 		this.props.loadToken((data)=>{
 		 	if ( data.token != ''){
-    			console.log(data);
 		 		this.props.history.push('/home');
 			}
 		})
@@ -85,7 +84,6 @@ function validate(values){
       if (!values.password){
         errors.password = "Senha não informada";
       }
-
 
       // if errors is empty, the form is fine to submit
       return errors;
