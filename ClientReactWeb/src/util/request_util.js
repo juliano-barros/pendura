@@ -11,13 +11,11 @@ export const GET = 'get';
 
 class RequestUtil{
 
-	static request( url, data, config = null, verb = POST ){
+	static request( url, data, config = {}, verb = POST ){
 
 		var header = { Accept : 'application/json', Authorization : `Bearer ${localStorage.token}` };
 
-		if ( localStorage.token != '' ) {
-			config = _.assign( header, config );
-		}
+    	config = _.defaultsDeep( config, { headers: header }  );
 
 		if ( ! sessionStorage.accessed ){
 			console.log("not accessed");
@@ -25,17 +23,16 @@ class RequestUtil{
 				// redirect to login
 				(dispatch)=>{dispatch(push('/login'))};
 			}else{
-				const request = axios.post( `${URL_IS_ALIVE}`,null, header);
+				const request = axios.post( `${URL_IS_ALIVE}`,null, config);
 				request.then((data)=> {
 					sessionStorage.accessed = true;
-				}).catch((data)=> {
+				}).catch((error)=> {
 					console.log("isAlive request");
-					console.log(data);
+					console.log(error);
 				})
 			}
 		}
-
-		return axios.request( {method : verb, url, data, headers: config } )
+		return axios.request( _.defaultsDeep({method : verb, url, data }, config ) );
 	}
 
 	static resetToken(status){

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 import { ROOT_URL } from './';
 import RequestUtil, { POST } from '../util/request_util';
 
@@ -25,10 +26,8 @@ export function loginRequest(values, callback){
 				dispatch({type: LOGIN_REQUEST, payload: data, values});
 				saveStorage( data.data.access_token, values.email );
 				callback(data);
-			}).catch((data) => {
-				console.log("catch loginRequest");
-				console.log(data);
-				RequestUtil.resetToken(data.status)
+			}).catch((error) => {
+				RequestUtil.resetToken(error.response.status)
 			});		
 	}
 }
@@ -42,9 +41,9 @@ export function loadToken(callback){
 			dispatch({type: LOGIN_LOAD_TOKEN, payload: {access_token: localStorage.token, user : localStorage.user} })
 			callback(data);
 		}).catch((error) => {
-			console.log("catch loadtoken");
-			console.log({error});
-			RequestUtil.resetToken(data.status)
+			console.log("aqui");
+			dispatch(push('/login'));
+			RequestUtil.resetToken(error.response.status)
 		});
 	}
 }
