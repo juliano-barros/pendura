@@ -42,7 +42,7 @@ export function loadToken(callback){
 			callback(data);
 		}).catch((error) => {
 			console.log("aqui");
-			dispatch(push('/login'));
+			//dispatch(push('/login'));
 			RequestUtil.resetToken(error.response.status)
 		});
 	}

@@ -1,8 +1,13 @@
 import axios from 'axios';
 import React from 'react';
 import _ from 'lodash';
-import { push } from 'react-router-redux';
+//import { push } from 'react-router-redux';
 import { ROOT_URL } from '../actions';
+import history from './history'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { routerMiddleware, push } from 'react-router-redux'
+
+
 
 const URL_IS_ALIVE = `${ROOT_URL}login/isAlive`;
 
@@ -21,14 +26,13 @@ class RequestUtil{
 			console.log("not accessed");
 			if ( localStorage.token == '' ){
 				// redirect to login
-				(dispatch)=>{dispatch(push('/login'))};
+				RequestUtil.redirectLogin();
 			}else{
 				const request = axios.post( `${URL_IS_ALIVE}`,null, config);
 				request.then((data)=> {
 					sessionStorage.accessed = true;
 				}).catch((error)=> {
-					console.log("isAlive request");
-					console.log(error);
+					RequestUtil.redirectLogin();
 				})
 			}
 		}
@@ -40,9 +44,15 @@ class RequestUtil{
 			sessionStorage.accessed = false;
 			localStorage.token = '';
 			localStorage.user = '';
-			// redirect to login
-			(dispatch)=>{dispatch(push('/login'))};
+			RequestUtil.redirectLogin();
 		}
+	}
+
+	static redirectLogin(){
+		if (window.location.href.indexOf( '/login') < 0 ) {
+			window.location.href = '/login';
+		}
+
 	}
 
 }
