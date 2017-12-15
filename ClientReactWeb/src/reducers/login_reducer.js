@@ -1,7 +1,12 @@
 import { LOGIN_REQUEST, LOGIN_REFRESH, LOGIN_LOAD_TOKEN } from '../actions/login_actions';
 import _ from 'lodash';
 
-export default function(state={},action){
+const stateDefault = {
+	token: '',
+	user : ''
+}
+
+export default function(state=stateDefault,action){
 
 	switch(action.type){
 		case LOGIN_REQUEST:

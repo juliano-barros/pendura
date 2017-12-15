@@ -23,7 +23,6 @@ class RequestUtil{
     	config = _.defaultsDeep( config, { headers: header }  );
 
 		if ( ! sessionStorage.accessed ){
-			console.log("not accessed");
 			if ( localStorage.token == '' ){
 				// redirect to login
 				RequestUtil.redirectLogin();

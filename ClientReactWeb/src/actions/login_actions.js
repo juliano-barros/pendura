@@ -41,8 +41,6 @@ export function loadToken(callback){
 			dispatch({type: LOGIN_LOAD_TOKEN, payload: {access_token: localStorage.token, user : localStorage.user} })
 			callback(data);
 		}).catch((error) => {
-			console.log("aqui");
-			//dispatch(push('/login'));
 			RequestUtil.resetToken(error.response.status)
 		});
 	}
