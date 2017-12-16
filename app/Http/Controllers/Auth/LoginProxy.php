@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Foundation\Application;
 use App\Exceptions\InvalidCredentialsException;
-use App\UserRepository;
+use App\Repositories\UserRepository;
 
 class LoginProxy
 {

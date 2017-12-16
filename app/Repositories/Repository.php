@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Repositories;
 
 use Optimus\Genie\Repository as BaseRepository;
 

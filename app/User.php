@@ -28,4 +28,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * User morphs many picture.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function pictures()
+    {
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(Picture::class, 'picturable');
+    }
+
 }
