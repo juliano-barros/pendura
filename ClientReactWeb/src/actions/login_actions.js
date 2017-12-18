@@ -1,7 +1,5 @@
-import axios from 'axios';
-import { push } from 'react-router-redux';
 import { ROOT_URL } from './';
-import RequestUtil, { POST } from '../util/request_util';
+import Requests, { POST } from '../util/requests';
 
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_REFRESH = 'login_refresh';
@@ -19,7 +17,7 @@ function saveStorage(token, user){
 
 export function loginRequest(values, callback){
 
-	const request = RequestUtil.request( `${URL_LOGIN}`, values, {}, POST);
+	const request = Requests.request( `${URL_LOGIN}`, values, {}, POST);
 
 	return (dispatch) => {
 		request.then((data)=>{
@@ -27,21 +25,21 @@ export function loginRequest(values, callback){
 				saveStorage( data.data.access_token, values.email );
 				callback(data);
 			}).catch((error) => {
-				RequestUtil.resetToken(error.response.status)
+				Requests.resetToken(error.response.status)
 			});		
 	}
 }
 
 export function loadToken(callback){
 
-	const request =  RequestUtil.request( `${URL_IS_ALIVE}`, null, {}, POST);
+	const request =  Requests.request( `${URL_IS_ALIVE}`, null, {}, POST);
 
 	return (dispatch)=>{
 		request.then((data)=>{
 			dispatch({type: LOGIN_LOAD_TOKEN, payload: {access_token: localStorage.token, user : localStorage.user} })
 			callback(data);
 		}).catch((error) => {
-			RequestUtil.resetToken(error.response.status)
+			Requests.resetToken(error.response.status)
 		});
 	}
 }

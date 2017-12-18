@@ -7,7 +7,6 @@ use App\Pendura;
 
 class Pendura_approve extends Model
 {
-    //
 
     /**
      * Pendura_approve belongs to Pendura.

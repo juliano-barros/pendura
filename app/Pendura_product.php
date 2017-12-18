@@ -8,7 +8,22 @@ use App\Pendura;
 class Pendura_product extends Model
 {
     //
-    public function pendura(){
-    	return $this->belongsTo(Pendura:class);
+    /**
+     * Fields that can be mass assigned.
+     *
+     * @var array
+     */
+    protected $fillable = ['price'];
+
+    /**
+     * Pendura_product belongs to Pendura.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pendura()
+    {
+    	// belongsTo(RelatedModel, foreignKey = pendura_id, keyOnRelatedModel = id)
+    	return $this->belongsTo(Pendura::class);
     }
+
 }

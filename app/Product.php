@@ -8,6 +8,12 @@ use App\Picture;
 class Product extends Model
 {
     //
+    /**
+     * Fields that can be mass assigned.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'user_id', 'price'];
 
     /**
      * Product morphs many picture.

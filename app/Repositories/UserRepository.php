@@ -13,6 +13,7 @@ class UserRepository extends Repository
     public function create(array $data)
     {
         $user = $this->getModel();
+        $data['password'] = bcrypt($data['password']);
         $user->fill($data);
         $user->save();
         return $user;

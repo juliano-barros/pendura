@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { loginRequest, loadToken } from '../../actions/login_actions';
-
 
 class LoginIndex extends Component{
 
