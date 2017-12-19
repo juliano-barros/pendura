@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { registerRequest } from '../../actions/register_actions';
 import { loginRequest } from '../../actions/login_actions';
 import Functions from '../../util/functions';
         
- class RegisterIndex extends Component {
+class RegisterIndex extends Component {
 
  	renderRegisterLogo(){
  		return (
@@ -36,18 +36,22 @@ import Functions from '../../util/functions';
  	}
 
  	onSubmit(values){
+ 		this.props.registerRequest(values)
+ 	}
 
- 		this.props.registerRequest(values, (data)=>{
- 			this.props.loginRequest(values, (data)=>{
- 				this.props.history.push('/home');
- 			})
+ 	onLogin(values){
+ 		this.props.loginRequest(values, (data)=>{
+ 			this.props.history.push('/home');
  		})
-
  	}
 
 	render() {
 
 		const {handleSubmit} = this.props;
+
+ 		if ( this.props.register.success ){
+ 			this.onLogin( this.props.fieldsForm )
+ 		}
 
 		return (
 			<div className="register-box">
@@ -124,9 +128,14 @@ function validate(values){
 
 }
 
+function mapStateToProps(state){
+	const selector = formValueSelector( 'RegisterIndexForm');
+	return {register: state.register, fieldsForm: { email: selector(state, 'email'), password: selector(state, 'password')}};
+}
+
 export default reduxForm({
   validate,
   form: 'RegisterIndexForm'
 })(
-  connect(null,{registerRequest, loginRequest})(RegisterIndex)
+  connect(mapStateToProps,{registerRequest, loginRequest})(RegisterIndex)
 );
