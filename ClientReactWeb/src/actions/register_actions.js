@@ -13,8 +13,8 @@ export function registerRequest(values){
 	return (dispatch) => {
 		request.then((data)=>{
 				dispatch({type: REGISTER_REQUEST, payload: data.data });
-			}).catch((error) => {
-				dispatch({type: REGISTER_REQUEST_ERROR, payload: error });
+			}).catch((data) => {
+				dispatch({type: REGISTER_REQUEST_ERROR, payload: data.response.data });
 			});		
 	}
 
