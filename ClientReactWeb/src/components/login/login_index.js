@@ -72,7 +72,7 @@ class LoginIndex extends Component{
 			            type="password"
 			            glyph="glyphicon-lock form-control-feedback"
 			          />
-				    <div class="row">
+				    <div className="row">
 				        	<button type="submit" className="btn btn-primary pull-right">Login</button>
 				    </div>
 

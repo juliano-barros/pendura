@@ -60,18 +60,27 @@ class RegisterIndex extends Component {
  		const {messages} = this.props.register;
 
  		if ( messages && ( messages.length > 0 ) ){
- 			console.log(messages);
-	 		const content = messages.map((element)=>
-	 					<div key={element.email[0]}>
-      					   {element.email[0]}
-    					</div>
-					);
-	 		console.log(content);
+ 			var contentAux;
+	 		const content = messages.map((element)=>{
+	 					const valuesArray =  Object.values(element);
+	 					contentAux = valuesArray.map((elementMessage)=>
+				 			<div key={elementMessage[0]}> 
+				 				{elementMessage[0]} 
+				 			</div>
+	 					
+    					)
+					});
 			return (
-				<div className="register-box">
-					{content}
-	            </div>
- 			)
+			        <div className="box box-default">
+			            <div className="box-body">
+			  	    	    <div className="alert alert-danger alert-dismissible">
+			                	<button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			                	<h4><i className="icon fa fa-ban"></i> Alert!</h4>
+									{contentAux}
+			            	</div>
+			            </div>
+	            	</div>
+ 				)
  		}
  	}
 
@@ -82,8 +91,8 @@ class RegisterIndex extends Component {
 		return (
 			<div className="register-box">
 				
-    			{this.renderRegisterLogo()}
     			{this.renderMessages()}
+    			{this.renderRegisterLogo()}
 
 				<div className="register-box-body">
 					<p className="login-box-msg">Registrar um novo membro</p>
