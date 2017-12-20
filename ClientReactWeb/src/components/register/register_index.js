@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { registerRequest } from '../../actions/register_actions';
 import { loginRequest } from '../../actions/login_actions';
 import Functions from '../../util/functions';
+import _ from 'lodash';
         
 class RegisterIndex extends Component {
 
@@ -40,23 +41,50 @@ class RegisterIndex extends Component {
  	}
 
  	onLogin(values){
- 		this.props.loginRequest(values, (data)=>{
+ 		this.props.loginRequest(values)
+ 	}
+
+ 	componentDidUpdate(){
+
+ 		if ( this.props.register.success ){
+ 			this.onLogin( this.props.fieldsForm )
+ 		}
+
+ 		if ( this.props.login.success_login ){
  			this.props.history.push('/home');
- 		})
+ 		}
+
+ 	}
+
+ 	renderMessages(){
+ 		const {messages} = this.props.register;
+
+ 		if ( messages && ( messages.length > 0 ) ){
+ 			console.log(messages);
+	 		const content = messages.map((element)=>
+	 					<div key={element.email[0]}>
+      					   {element.email[0]}
+    					</div>
+					);
+	 		console.log(content);
+			return (
+				<div className="register-box">
+					{content}
+	            </div>
+ 			)
+ 		}
  	}
 
 	render() {
 
 		const {handleSubmit} = this.props;
 
- 		if ( this.props.register.success ){
- 			this.onLogin( this.props.fieldsForm )
- 		}
-
 		return (
 			<div className="register-box">
 				
     			{this.renderRegisterLogo()}
+    			{this.renderMessages()}
+
 				<div className="register-box-body">
 					<p className="login-box-msg">Registrar um novo membro</p>
 					<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -130,7 +158,7 @@ function validate(values){
 
 function mapStateToProps(state){
 	const selector = formValueSelector( 'RegisterIndexForm');
-	return {register: state.register, fieldsForm: { email: selector(state, 'email'), password: selector(state, 'password')}};
+	return {register: state.register, login: state.login, fieldsForm: { email: selector(state, 'email'), password: selector(state, 'password')}};
 }
 
 export default reduxForm({

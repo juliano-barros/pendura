@@ -1,22 +1,22 @@
 import { REGISTER_REQUEST, REGISTER_REQUEST_ERROR } from '../actions/register_actions';
 import _ from 'lodash';
 
-const stateNew = {
+const INITIAL_STATE = {
 	success: false,
 	email: '',
 	name: '',
-	messages: {}
+	messages: []
 }
 
-export default (state=stateNew, action)=> {
+export default (state=INITIAL_STATE, action)=> {
 
 	switch(action.type){
 		case REGISTER_REQUEST:
-			return _.defaults( { success: action.payload.validado, email: action.payload.email, name: action.payload.email }, stateNew );
+			return _.defaults( { success: action.payload.validado, email: action.payload.email, name: action.payload.email }, INITIAL_STATE );
 		case REGISTER_REQUEST_ERROR:
-			return { success: false, email: '',	name: '', messages: action.payload.errors };
+			return _.defaults({ success: false, email: '',	name: '', messages: [action.payload.errors] }, INITIAL_STATE );
 		default :
-		  return state
+		  return _.defaults(state, INITIAL_STATE )
 	}
 
 }

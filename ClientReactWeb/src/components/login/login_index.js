@@ -3,30 +3,28 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginRequest, loadToken } from '../../actions/login_actions';
+import Functions from '../../util/functions';
 
 class LoginIndex extends Component{
 
 	componentWillMount(){
-		this.props.loadToken((data)=>{
-		 	if ( data.token != ''){
-		 		this.props.history.push('/home');
-			}
-		})
+		this.props.loadToken();
 	}
 
   	renderField(field){
 
 	    const { meta: { touched, error } } = field;
-	    const className=`form-group ${ touched && error ? 'has-danger' : ''}`;
+	    const className=`form-group ${ touched && error ? 'has-danger' : ''} has-feedback`;
 
 		return(
       		<div className ={className}>
-        		<label >{field.label}</label>
         		<input
             		className="form-control"
-            		type="text"
+            		type={field.type}
+            		placeholder={field.label}
             		{...field.input}
         		/>
+        		<span className={`glyphicon ${field.glyph}`}> </span>
         		<div className ="text-help">
           			{ touched ? error : '' }
         		</div>
@@ -36,36 +34,51 @@ class LoginIndex extends Component{
 	}
 
 	onSubmit(values){
-		this.props.loginRequest(values,(data)=>{
+		this.props.loginRequest(values);
+	}
+
+	componentDidUpdate(){
+		
+		if ( ( this.props.login.success_login) || ( this.props.login.success_load_token ) ){
 			this.props.history.push('/home');
-		});
+		}
+
 	}
 		
 	render(){
 		
 		const { handleSubmit } = this.props;
 
-		return(
-	      <div>
-	        <h3>
-	          Login!
-	        </h3>
-	        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-	          <Field
-	            name="email"
-	            component ={this.renderField}
-	            label="Usuário"
-	          />
-	          <Field
-	            label="Senha"
-	            name="password"
-	            component ={this.renderField}
-	          />
-	          <button type="submit" className="btn btn-primary">Login</button>
 
-	        </form>
+ 		return(
+			<div className="register-box">
+				<div className="login-logo">
+					<Link to="/home"><b>Pendura</b></Link>
+	         	</div>
+				<div className="register-box-body">
+			        <p className="login-box-msg">Login</p>
+			        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+			          <Field
+			            name="email"
+			            component ={this.renderField}
+			            label="Usuário"
+			            type="text"
+			            glyph="glyphicon-envelope form-control-feedback"
+			          />
+			          <Field
+			            label="Senha"
+			            name="password"
+			            component ={this.renderField}
+			            type="password"
+			            glyph="glyphicon-lock form-control-feedback"
+			          />
+				    <div class="row">
+				        	<button type="submit" className="btn btn-primary pull-right">Login</button>
+				    </div>
 
-	      </div>
+			        </form>
+	            </div>
+		    </div>
 	    );
 	}
 
@@ -73,19 +86,25 @@ class LoginIndex extends Component{
 
 function validate(values){
 
-      const errors={};
+    const errors={};
 
-      if (!values.email){
-        errors.email = "E-mail não informado";
-      }
+    if (!values.email){
+    	errors.email = "E-mail não informado";
+    }else if ( ! Functions.isEmailValid( values.email)){
+        errors.email = "E-mail inválido";
+    }
 
-      if (!values.password){
+    if (!values.password){
         errors.password = "Senha não informada";
-      }
+    }
 
-      // if errors is empty, the form is fine to submit
-      return errors;
+    // if errors is empty, the form is fine to submit
+    return errors;
 
+}
+
+function mapStateToProps({login}){
+	return { login };
 }
 
 
@@ -93,5 +112,5 @@ export default reduxForm({
   validate,
   form: 'LoginIndexForm'
 })(
-  connect(null,{loginRequest, loadToken})(LoginIndex)
+  connect(mapStateToProps,{loginRequest, loadToken})(LoginIndex)
 );
