@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { registerRequest } from '../../actions/register_actions';
+import { registerRequest, cleanRequestMessages } from '../../actions/register_actions';
 import { loginRequest } from '../../actions/login_actions';
 import Functions from '../../util/functions';
 import _ from 'lodash';
@@ -56,30 +56,34 @@ class RegisterIndex extends Component {
 
  	}
 
+ 	onClickDismiss(){
+ 		this.props.cleanRequestMessages();
+ 	}
+
  	renderMessages(){
  		const {messages} = this.props.register;
-
+ 		console.log(messages);
  		if ( messages && ( messages.length > 0 ) ){
  			var contentAux;
-	 		const content = messages.map((element)=>{
-	 					const valuesArray =  Object.values(element);
-	 					contentAux = valuesArray.map((elementMessage)=>
-				 			<div key={elementMessage[0]}> 
-				 				{elementMessage[0]} 
-				 			</div>
+	 		const content = 
+	 			messages.map((element)=>{
+ 					const valuesArray =  Object.values(element);
+ 					contentAux = valuesArray.map((elementMessage)=>
+			 			<div key={elementMessage[0]}> 
+			 				{elementMessage[0]} 
+			 			</div>
 	 					
-    					)
-					});
+				)
+			});
+
 			return (
-			        <div className="box box-default">
-			            <div className="box-body">
-			  	    	    <div className="alert alert-danger alert-dismissible">
-			                	<button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			                	<h4><i className="icon fa fa-ban"></i> Alert!</h4>
-									{contentAux}
-			            	</div>
-			            </div>
-	            	</div>
+	  	    	    <div>
+		  	    	    <div className="alert alert-danger alert-dismissible" onClick={this.onClickDismiss.bind(this)}>
+		                	<button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		                	<h4><i className="icon fa fa-ban"></i> Alert!</h4>
+								{contentAux}
+		            	</div>
+		            </div>
  				)
  		}
  	}
@@ -174,5 +178,5 @@ export default reduxForm({
   validate,
   form: 'RegisterIndexForm'
 })(
-  connect(mapStateToProps,{registerRequest, loginRequest})(RegisterIndex)
+  connect(mapStateToProps,{registerRequest, loginRequest, cleanRequestMessages})(RegisterIndex)
 );

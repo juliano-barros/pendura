@@ -4,6 +4,7 @@ import { ROOT_URL } from './';
 const URL_REGISTER = `${ROOT_URL}registeruser`;
 
 export const REGISTER_REQUEST = 'register_request';
+export const REGISTER_REQUEST_CLEAN_MESSAGES = 'register_request_clean_message';
 export const REGISTER_REQUEST_ERROR = 'register_request_error';
 
 export function registerRequest(values){
@@ -18,4 +19,10 @@ export function registerRequest(values){
 			});		
 	}
 
+}
+
+export function cleanRequestMessages(){
+	return (dispatch) =>{
+		dispatch({type:REGISTER_REQUEST_CLEAN_MESSAGES, payload: {}})
+	}
 }
