@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { registerRequest, cleanRequestMessages } from '../../actions/register_actions';
+import { registerRequest, cleanRequestMessages, cleanRegisterSuccess } from '../../actions/register_actions';
 import { loginRequest } from '../../actions/login_actions';
 import Functions from '../../util/functions';
 import _ from 'lodash';
@@ -47,12 +47,13 @@ class RegisterIndex extends Component {
  	componentDidUpdate(){
 
  		if ( this.props.register.success ){
- 			this.onLogin( this.props.fieldsForm )
+ 			this.onLogin( this.props.fieldsForm );
+	 		if ( this.props.login.success_login ){
+	 			this.props.cleanRegisterSuccess();
+	 			this.props.history.push('/full/home');
+	 		}
  		}
 
- 		if ( this.props.login.success_login ){
- 			this.props.history.push('/home');
- 		}
 
  	}
 
@@ -62,7 +63,6 @@ class RegisterIndex extends Component {
 
  	renderMessages(){
  		const {messages} = this.props.register;
- 		console.log(messages);
  		if ( messages && ( messages.length > 0 ) ){
  			var contentAux;
 	 		const content = 
@@ -78,8 +78,8 @@ class RegisterIndex extends Component {
 
 			return (
 	  	    	    <div>
-		  	    	    <div className="alert alert-danger alert-dismissible" onClick={this.onClickDismiss.bind(this)}>
-		                	<button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  	    	    <div className="alert alert-danger alert-dismissible" >
+		                	<button type="button" onClick={this.onClickDismiss.bind(this)} className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		                	<h4><i className="icon fa fa-ban"></i> Alert!</h4>
 								{contentAux}
 		            	</div>
@@ -93,7 +93,7 @@ class RegisterIndex extends Component {
 		const {handleSubmit} = this.props;
 
 		return (
-			<div className="register-box">
+			<div >
 				
     			{this.renderMessages()}
     			{this.renderRegisterLogo()}
@@ -178,5 +178,5 @@ export default reduxForm({
   validate,
   form: 'RegisterIndexForm'
 })(
-  connect(mapStateToProps,{registerRequest, loginRequest, cleanRequestMessages})(RegisterIndex)
+  connect(mapStateToProps,{registerRequest, loginRequest, cleanRequestMessages, cleanRegisterSuccess})(RegisterIndex)
 );

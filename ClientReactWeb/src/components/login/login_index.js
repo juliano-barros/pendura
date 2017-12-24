@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { loginRequest, loadToken } from '../../actions/login_actions';
+import { loginRequest, loadToken, cleanRequestMessages } from '../../actions/login_actions';
 import Functions from '../../util/functions';
 
 class LoginIndex extends Component{
@@ -40,10 +40,41 @@ class LoginIndex extends Component{
 	componentDidUpdate(){
 		
 		if ( ( this.props.login.success_login) || ( this.props.login.success_load_token ) ){
-			this.props.history.push('/home');
+			this.props.history.push('/full/home');
 		}
 
 	}
+
+ 	onClickDismiss(){
+ 		this.props.cleanRequestMessages();
+ 	}
+
+ 	renderMessages(){
+ 		const {messages} = this.props.login;
+ 		if ( messages && ( messages.length > 0 ) ){
+ 			var contentAux;
+	 		const content = 
+	 			messages.map((element)=>{
+ 					const valuesArray =  Object.values(element);
+ 					contentAux = valuesArray.map((elementMessage)=>
+			 			<div key={elementMessage[0]}> 
+			 				{elementMessage[0]} 
+			 			</div>
+	 					
+				)
+			});
+
+			return (
+	  	    	    <div>
+		  	    	    <div className="alert alert-danger alert-dismissible" >
+		                	<button type="button" onClick={this.onClickDismiss.bind(this)} className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		                	<h4><i className="icon fa fa-ban"></i> Alert!</h4>
+								{contentAux}
+		            	</div>
+		            </div>
+ 				)
+ 		}
+ 	}
 		
 	render(){
 		
@@ -51,7 +82,11 @@ class LoginIndex extends Component{
 
 
  		return(
-			<div className="register-box">
+
+			<div>
+				
+				{this.renderMessages()}
+
 				<div className="login-logo">
 					<Link to="/home"><b>Pendura</b></Link>
 	         	</div>
@@ -112,5 +147,5 @@ export default reduxForm({
   validate,
   form: 'LoginIndexForm'
 })(
-  connect(mapStateToProps,{loginRequest, loadToken})(LoginIndex)
+  connect(mapStateToProps,{loginRequest, loadToken, cleanRequestMessages})(LoginIndex)
 );

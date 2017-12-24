@@ -21,6 +21,7 @@ class LoginNewController extends Controller
     {
         $email = $request->get('email');
         $password = $request->get('password');
+        
 
         return response($this->loginProxy->attemptLogin($email, $password));
     }

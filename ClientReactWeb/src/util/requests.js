@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import _ from 'lodash';
-//import { push } from 'react-router-redux';
 import { ROOT_URL } from '../actions';
 import history from './history'
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -48,9 +47,10 @@ class Requests{
 	}
 
 	static redirectLogin(){
-		if (window.location.href.indexOf( '/login') < 0 ) {
-			window.location.href = '/login';
-		}
+		//if (window.location.href.indexOf( '/login') < 0 ) {
+		//	window.location.href = '/user/login';
+		//}
+		
 
 	}
 

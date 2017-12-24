@@ -4,10 +4,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
-import LoginIndex from './login/login_index';
-import HomeIndex from './Home/home_index';
-import RegisterIndex from './Register/register_index';
 import reducers from '../reducers';
+import Layout_blank from '../layouts/layout_blank';
+import Layout_full from '../layouts/layout_full';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -17,11 +16,10 @@ export default class App extends Component {
 	  <Provider store={createStoreWithMiddleware(reducers)}>
 		  <BrowserRouter>
 	  		<div>
-			  <Switch>
-	    	      <Route path="/login" component={LoginIndex} />
-	        	  <Route path="/home" component={HomeIndex} />
-	        	  <Route path="/register" component={RegisterIndex} />
-			  </Switch>
+				<Switch>
+      	  			<Route path="/user" component={Layout_blank} />
+      	  			<Route path="/full" component={Layout_full} />
+				</Switch>
 	  		</div>
 	  	</BrowserRouter>
 	  </Provider>

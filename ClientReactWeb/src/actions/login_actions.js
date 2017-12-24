@@ -2,6 +2,7 @@ import { ROOT_URL } from './';
 import Requests, { POST } from '../util/requests';
 
 export const LOGIN_REQUEST = 'login_request';
+export const LOGIN_REQUEST_CLEAN_MESSAGE = 'login_request_clean_message';
 export const LOGIN_REQUEST_ERROR = 'login_request_error';
 export const LOGIN_REFRESH = 'login_refresh';
 export const LOGIN_LOAD_TOKEN = 'login_load_token';
@@ -27,7 +28,7 @@ export function loginRequest(values){
 				dispatch({type: LOGIN_REQUEST, payload: data, values});
 			}).catch((error) => {
 				Requests.resetToken(error.response.status)
-				dispatch({type: LOGIN_REQUEST_ERROR, payload: error});
+				dispatch({type: LOGIN_REQUEST_ERROR, payload: error.response.data});
 			});		
 	}
 }
@@ -43,6 +44,13 @@ export function loadToken(){
 			Requests.resetToken(error.response.status)
 			dispatch({type: LOGIN_LOAD_TOKEN_ERROR, payload: {access_token: localStorage.token, user : localStorage.user} })
 		});
+	}
+}
+
+
+export function cleanRequestMessages(){
+	return (dispatch) =>{
+		dispatch({type:LOGIN_REQUEST_CLEAN_MESSAGE, payload: {}})
 	}
 }
 
