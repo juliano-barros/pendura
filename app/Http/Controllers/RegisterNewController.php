@@ -25,4 +25,11 @@ class RegisterNewController extends Controller
 
     	return response(['name' => $user->name, 'email' => $user->email, 'validado' => true ]);
     }
+
+    public function hasAlreadyUser(Request $request){
+    	$user = User::where('email', $request->get('email'));
+
+    	return response(['count'=> $user->count()]);
+    }
+
 }

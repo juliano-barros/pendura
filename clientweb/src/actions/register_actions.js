@@ -2,6 +2,7 @@ import Requests, { POST } from '../util/requests';
 import { ROOT_URL } from './';
 
 const URL_REGISTER = `${ROOT_URL}registeruser`;
+const URL_HASUSERNAME = `${ROOT_URL}register/hasAlreadyUser`;
 
 export const REGISTER_REQUEST = 'register_request';
 export const REGISTER_REQUEST_CLEAN_MESSAGES = 'register_request_clean_message';
@@ -34,4 +35,15 @@ export function cleanRequestMessages(){
 	return (dispatch) =>{
 		dispatch({type:REGISTER_REQUEST_CLEAN_MESSAGES, payload: {}})
 	}
+}
+
+export function hasUsernameAlready(values, dispatch, props, fieldBlur){
+	const request = Requests.request(URL_HASUSERNAME, values);
+	
+	return request.then((data)=>{
+		if ( data.data.count > 0 ){
+			throw { email: 'Usuário já cadastrado' };
+		}
+	})
+
 }

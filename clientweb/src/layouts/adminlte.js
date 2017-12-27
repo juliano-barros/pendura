@@ -61,6 +61,7 @@ export const BoxRefreshLTE = ($) => {
   // Private
 
   BoxRefresh.prototype._setUpListeners = function () {
+    $(this.element).off('click', Selector.trigger ) ;
     $(this.element).on('click', Selector.trigger, function (event) {
       if (event) event.preventDefault()
       this.load()
@@ -226,10 +227,14 @@ export const BoxWidgetLTE = ($) => {
   BoxWidget.prototype._setUpListeners = function () {
     var that = this
 
+    $(this.element).off('click', this.options.collapseTrigger);
+
     $(this.element).on('click', this.options.collapseTrigger, function (event) {
       if (event) event.preventDefault()
       that.toggle()
     })
+
+    $(this.element).off('click', this.options.removeTrigger);
 
     $(this.element).on('click', this.options.removeTrigger, function (event) {
       if (event) event.preventDefault()
@@ -329,7 +334,8 @@ export const ControlSidebarLTE = ($) => {
     // Add click listener if the element hasn't been
     // initialized using the data API
     if (!$(this.element).is(Selector.data)) {
-      $(this).on('click', this.toggle)
+      $(this).off('click', this.toggle);
+      $(this).on('click', this.toggle);
     }
 
     this.fix()
@@ -410,6 +416,7 @@ export const ControlSidebarLTE = ($) => {
 
   // ControlSidebar Data API
   // =======================
+  $(document).off('click', Selector.data );
   $(document).on('click', Selector.data, function (event) {
     if (event) event.preventDefault()
     Plugin.call($(this), 'toggle')
@@ -477,6 +484,8 @@ export const DirectChatLTE = ($) => {
 
   // DirectChat Data API
   // ===================
+  $(document).off('click', Selector.data );
+
   $(document).on('click', Selector.data, function (event) {
     if (event) event.preventDefault()
     Plugin.call($(this), 'toggle')
@@ -554,10 +563,14 @@ export const LayoutLTE = ($) => {
       this.bindedResize = true
     }
 
+    $(Selector.sidebarMenu).off('expanded.tree');
+
     $(Selector.sidebarMenu).on('expanded.tree', function () {
       this.fix()
       this.fixSidebar()
     }.bind(this))
+
+    $(Selector.sidebarMenu).off('collapsed.tree');
 
     $(Selector.sidebarMenu).on('collapsed.tree', function () {
       this.fix()
@@ -739,7 +752,6 @@ export const pushMenuLTE = ($) => {
     if (windowWidth <= this.options.collapseScreenSize) {
       isOpen = $('body').hasClass(ClassName.open)
     }
-
     if (!isOpen) {
       this.open()
     } else {
@@ -805,10 +817,11 @@ export const pushMenuLTE = ($) => {
       var $this = $(this)
       var data  = $this.data(DataKey)
 
-      //if (!data) {
+      if (!data) {
         var options = $.extend({}, Default, $this.data(), typeof option === 'object' && option)
         $this.data(DataKey, (data = new PushMenu(options)))
-      //}
+      }
+
 
       if (option === 'toggle') data.toggle()
     })
@@ -828,6 +841,8 @@ export const pushMenuLTE = ($) => {
 
   // Data API
   // ========
+  $(document).off('click', Selector.button);
+
   $(document).on('click', Selector.button, function (e) {
     e.preventDefault()
     Plugin.call($(this), 'toggle')
@@ -896,6 +911,7 @@ export const TodoListLTE = ($) => {
 
   TodoList.prototype._setUpListeners = function () {
     var that = this
+    $(this.element).off('change ifChanged', 'input:checkbox');
     $(this.element).on('change ifChanged', 'input:checkbox', function () {
       that.toggle($(this))
     })
@@ -1047,6 +1063,7 @@ export const TreeLTE = ($) => {
   Tree.prototype._setUpListeners = function () {
     var that = this
 
+    $(this.element).off('click', this.options.trigger);
     $(this.element).on('click', this.options.trigger, function (event) {
       that.toggle($(this), event)
     })

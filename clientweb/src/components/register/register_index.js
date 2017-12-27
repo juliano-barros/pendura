@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { registerRequest, cleanRequestMessages, cleanRegisterSuccess } from '../../actions/register_actions';
-import { loginRequest } from '../../actions/login_actions';
+import { registerRequest, cleanRequestMessages, cleanRegisterSuccess, hasUsernameAlready } from '../../actions/register_actions';
+import { loginRequest, } from '../../actions/login_actions';
 import Functions from '../../util/functions';
         
 class RegisterIndex extends Component {
@@ -35,6 +35,7 @@ class RegisterIndex extends Component {
  	}
 
  	onSubmit(values){
+ 		console.log(values);
  		this.props.registerRequest(values)
  	}
 
@@ -173,7 +174,9 @@ function mapStateToProps(state){
 
 export default reduxForm({
   validate,
-  form: 'RegisterIndexForm'
+  asyncValidate: hasUsernameAlready,
+  form: 'RegisterIndexForm',
+  asyncBlurFields: ['email']
 })(
   connect(mapStateToProps,{registerRequest, loginRequest, cleanRequestMessages, cleanRegisterSuccess})(RegisterIndex)
 );
