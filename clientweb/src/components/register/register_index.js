@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { registerRequest, cleanRequestMessages, cleanRegisterSuccess, hasUsernameAlready } from '../../actions/register_actions';
 import { loginRequest, } from '../../actions/login_actions';
 import Functions from '../../util/functions';
+import { PATHS } from '../routes';
         
 class RegisterIndex extends Component {
 
  	renderRegisterLogo(){
  		return (
  			<div className="register-logo">
- 				<Link to="/home">
+ 				<Link to={PATHS.home}>
  					<b>Pendura</b>
  				</Link>
   			</div>
@@ -35,7 +36,6 @@ class RegisterIndex extends Component {
  	}
 
  	onSubmit(values){
- 		console.log(values);
  		this.props.registerRequest(values)
  	}
 
@@ -87,7 +87,7 @@ class RegisterIndex extends Component {
  	}
 
  	onClickHome(){
- 		this.props.history.push("/full/home");
+ 		this.props.history.push(PATHS.home);
  	}
 
 	render() {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import thunk from 'redux-thunk';
+import { PATHS } from './routes';
 
 import reducers from '../reducers';
 import Layout_blank from '../layouts/layout_blank';
@@ -18,7 +19,7 @@ export default class App extends Component {
 	  		<div>
 				<Switch>
       	  			<Route path="/user" component={Layout_blank} />
-      	  			<Route path="/full" component={Layout_full} />
+      	  			<Route path="/" component={Layout_full} />
 				</Switch>
 	  		</div>
 	  	</BrowserRouter>

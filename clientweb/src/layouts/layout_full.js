@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import $ from 'jquery';
+import { PATHS } from '../components/routes';
 
 import LayoutFullHeader from './layout_full_header';
 import LayoutFullAside from './layout_full_aside';
@@ -31,8 +32,9 @@ class Layout_full extends Component {
 				<LayoutFullAside />
   				<div className="content-wrapper">
 				    <section className="content">
-  						<Route path="/full/home" component={HomeIndex} />
-  						<Route path="/full/profile" component={ProfileIndex} />
+	  						<Route path={PATHS.home} component={HomeIndex} />
+	  						<Route path={PATHS.profile} component={ProfileIndex} />
+	  						<Redirect to={PATHS.home} />
   					</section>
   				</div>
   				<LayoutFullFooter />

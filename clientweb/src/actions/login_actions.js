@@ -28,7 +28,9 @@ export function loginRequest(values){
 				saveStorage( data.data.access_token, values.email );
 				dispatch({type: LOGIN_REQUEST, payload: data, values});
 			}).catch((error) => {
-				Requests.resetToken(error.response.status)
+				if ( ( error.response ) && ( error.response.status ) ){
+					Requests.resetToken(error.response.status)
+				}
 				dispatch({type: LOGIN_REQUEST_ERROR, payload: error.response.data});
 			});		
 	}
@@ -42,7 +44,9 @@ export function loadToken(){
 		request.then((data)=>{
 			dispatch({type: LOGIN_LOAD_TOKEN, payload: {access_token: localStorage.token, user : localStorage.user} })
 		}).catch((error) => {
-			Requests.resetToken(error.response.status)
+			if ( ( error.response ) && ( error.response.status ) ){
+				Requests.resetToken(error.response.status)
+			}
 			dispatch({type: LOGIN_LOAD_TOKEN_ERROR, payload: {access_token: localStorage.token, user : localStorage.user} })
 		});
 	}

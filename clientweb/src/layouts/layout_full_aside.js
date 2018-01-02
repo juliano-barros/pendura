@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PATHS } from '../components/routes';
 
 class LayoutFullAside extends Component {
 
@@ -12,7 +13,7 @@ class LayoutFullAside extends Component {
 				    <section className="sidebar">
 					    <div className="user-panel">
 			        		<div className="pull-left image">
-				          		<img src="/plugins/dist/img/user2-160x160.jpg" className="img-circle" alt="..." />
+				          		<img src={this.props.profile.picture} className="img-circle" alt="..." />
 			        		</div>
 			        		<div className="pull-left info">
 			          			<p>{this.props.profile.name}</p>
@@ -30,17 +31,17 @@ class LayoutFullAside extends Component {
 			          			</Link>
 			          			<ul className="treeview-menu">
 			          				<li>
-					          			<Link to="/full/profile" >
+					          			<Link to={PATHS.profile} >
 					          				<i className="fa fa-circle-o"></i> Profile
 					          			</Link>
 					          		</li>
 			          				<li>
-					          			<Link to="/user/register" >
+					          			<Link to={PATHS.register} >
 					          				<i className="fa fa-circle-o"></i> Registar novo usuário
 					          			</Link>
 					          		</li>
 			          				<li>
-					          			<Link to="/user/register" >
+					          			<Link to={PATHS.register} >
 					          				<i className="fa fa-circle-o"></i> Logout
 					          			</Link>
 					          		</li>

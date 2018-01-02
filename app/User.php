@@ -38,6 +38,7 @@ class User extends Authenticatable
     public function pictures()
     {
         // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+
         return $this->morphMany(Picture::class, 'picturable');
     }
 

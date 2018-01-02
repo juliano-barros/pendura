@@ -11,9 +11,13 @@ export const GET = 'get';
 
 class Requests{
 
-	static request( url, data, config = {}, verb = POST ){
-
-		var header = { Accept : 'application/json', Authorization : `Bearer ${localStorage.token}` };
+	static request( url, data, config = {}, verb = POST, formData = false ){
+		var header = {}
+		if ( ! formData){
+			header = { Accept : 'application/json', Authorization : `Bearer ${localStorage.token}` };
+		}else{
+			header = { Accept : 'text/*, text/plain, text/plain;format=flowed, */*', Authorization : `Bearer ${localStorage.token}`, 'content-type' : 'multipart/form-data' };
+		}
 
     	config = _.defaultsDeep( config, { headers: header }  );
 

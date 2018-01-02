@@ -3,11 +3,16 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {logout} from '../actions/login_actions';
 import {profileRequest} from '../actions/profile_actions';
+import { PATHS } from '../components/routes';
 
 class LayoutFullHeader extends Component {
 
 	componentDidMount(){
 		this.props.profileRequest();
+	}
+
+	goProfile(){
+		this.props.history.push(PATHS.profile)
 	}
 
 
@@ -31,12 +36,12 @@ class LayoutFullHeader extends Component {
 				        	<ul className="nav navbar-nav">
 					          	<li className="dropdown user user-menu">
 					            	<a className="dropdown-toggle" data-toggle="dropdown">
-					              		<img src="/plugins/dist/img/user2-160x160.jpg" className="user-image" alt="User" />
+					              		<img src={this.props.profile.picture} className="user-image" alt="User" />
 					              		<span className="hidden-xs">{this.props.profile.name}</span>
 					            	</a>
 					            	<ul className="dropdown-menu">
 					              		<li className="user-header">
-					                		<img src="/plugins/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
+					                		<img src={this.props.profile.picture} className="img-circle" alt="User" />
 
 					                		<p>
 					                  			{this.props.profile.name}
@@ -44,7 +49,7 @@ class LayoutFullHeader extends Component {
 					                		</p>
 					              		</li>
 					              		<li className="user-footer">
-				                			<Link to="/full/profile"   className="btn btn-default btn-flat">
+				                			<Link to={PATHS.profile} type="button" className="btn btn-default btn-flat">
 				                				Profile
 				                			</Link>
 					                		<div className="pull-right">

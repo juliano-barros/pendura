@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginRequest, loadToken, cleanRequestMessages } from '../../actions/login_actions';
 import Functions from '../../util/functions';
+import { PATHS } from '../routes';
 
 class LoginIndex extends Component{
 
@@ -39,7 +40,7 @@ class LoginIndex extends Component{
 	componentDidUpdate(){
 		
 		if ( ( this.props.login.success_login) || ( this.props.login.success_load_token ) ){
-			this.props.history.push('/full/home');
+			this.props.history.push(PATHS.home);
 		}
 
 	}
@@ -85,7 +86,7 @@ class LoginIndex extends Component{
 				{this.renderMessages()}
 
 				<div className="login-logo">
-					<Link to="/home"><b>Pendura</b></Link>
+					<Link to={PATHS.home}><b>Pendura</b></Link>
 	         	</div>
 				<div className="register-box-body">
 			        <p className="login-box-msg">Login</p>
