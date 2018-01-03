@@ -25,7 +25,8 @@ Route::post('/login/refresh', 'LoginNewController@refresh');
 
 Route::middleware('auth:api')->post('/login/isAlive', 'LoginNewController@isAlive');
 Route::middleware('auth:api')->post('/profile/profile', 'ProfileController@profile');
-Route::middleware('auth:api')->post('/profile/savePhotoCrop', 'ProfileController@savePhotoCrop');
+Route::middleware('auth:api')->post('/profile/updatePictureProfile', 'ProfileController@updatePictureProfile');
+Route::middleware('auth:api')->post('/profile/updateProfile', 'ProfileController@updateProfile');
 
 
 

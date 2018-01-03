@@ -11,6 +11,7 @@ export const GET = 'get';
 
 class Requests{
 
+
 	static request( url, data, config = {}, verb = POST, formData = false ){
 		var header = {}
 		if ( ! formData){

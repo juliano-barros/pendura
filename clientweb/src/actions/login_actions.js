@@ -30,8 +30,10 @@ export function loginRequest(values){
 			}).catch((error) => {
 				if ( ( error.response ) && ( error.response.status ) ){
 					Requests.resetToken(error.response.status)
+					dispatch({type: LOGIN_REQUEST_ERROR, payload: error.response.data});
+				}else{
+					dispatch({type: LOGIN_REQUEST_ERROR, payload: error});
 				}
-				dispatch({type: LOGIN_REQUEST_ERROR, payload: error.response.data});
 			});		
 	}
 }

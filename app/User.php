@@ -6,6 +6,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\AccessToken;
+use App\Repositories\ProfileRepository;
 
 
 class User extends Authenticatable
@@ -51,6 +52,14 @@ class User extends Authenticatable
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(AccessToken::class);
+    }
+
+    public function pictureProfile(){
+        
+        if ( sizeof($this->pictures) > 0 )
+            return $this->pictures[0]->fileBase64( ProfileRepository::IMG_PATH_NAME );
+
+        return "";
     }
 
 }

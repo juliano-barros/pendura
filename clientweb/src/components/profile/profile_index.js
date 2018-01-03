@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { profileRequest, savePhoto } from '../../actions/profile_actions';
+import { profileRequest, uploadPictureProfile, updateProfile } from '../../actions/profile_actions';
 import $ from 'jquery';
+import ProgressBarLte from '../../containers/progress/progresslte';
 
 class ProfileIndex extends Component {
 
 	onSubmit(values){
 		
-		var formData = new FormData()
-		formData.append( 'name', values.name);
-		formData.append( 'email', values.email);
-		
-		if ( values.picture.length > 0 ){
-			formData.append( 'picture', values.picture[0], values.picture[0].name);
-		 	values = formData;
+		this.props.updateProfile(values);
+	}
+
+	uploadPicture(){
+
+		if ( typeof this.props.profile.picture === "object" ){
+			var formData = new FormData()
+			formData.append( 'picture', this.props.profile.picture, this.props.profile.picture.name);
+			this.props.uploadPictureProfile(formData);
 		}
 
-		this.onSavePhoto(values);
 
 	}
+
 
 
 	componentWillUpdate(){
@@ -50,12 +53,10 @@ class ProfileIndex extends Component {
 
  	}
 
- 	onSavePhoto(values){
- 		this.props.savePhoto(values);
- 	}
-
  	renderJcrop(field){
-  		delete field.input.value; // <-- just delete the value property
+ 		if (field.input.value !== " " ){
+  			delete field.input.value; // <-- just delete the value property
+  		}
   		return <input type="file" id="file" {...field.input} />;
  	}
 
@@ -70,6 +71,7 @@ class ProfileIndex extends Component {
 	        fr.onload = function () {
 	            this.props.profile.picture = $("#file").prop("files")[0];
 	            $("#imgPicture").attr( 'src', fr.result);
+	            this.uploadPicture();
 	        }.bind(this)
 
 	        fr.readAsDataURL(files[0]);
@@ -102,6 +104,7 @@ class ProfileIndex extends Component {
 						<div className = "col-sm-12">
 							<div className="col-sm-6">
 							 	<img id="imgPicture"  className="form-control" src={this.props.profile.picture} />
+							 	<ProgressBarLte value={this.props.profile.uploadPercent} />
 								<Field name="picture" className="form-control" component={this.renderJcrop.bind(this)} onChange={this.loadImageFromClientSide.bind(this)} />
 							</div>
 
@@ -145,10 +148,9 @@ ProfileIndex = reduxForm({
 	form: 'profile_form_index'
 })(ProfileIndex) 
 
-ProfileIndex = connect(mapStateToProps, {profileRequest, savePhoto})(ProfileIndex)
+ProfileIndex = connect(mapStateToProps, {profileRequest, uploadPictureProfile, updateProfile})(ProfileIndex)
 
 export default ProfileIndex;
-//{this.renderJcrop.bind(this)}
 
 
 

@@ -22,35 +22,39 @@ class ProfileController extends Controller
     }
 
     public function profile( Request $request ){
-
     	$user = auth()->guard('api')->user();
     	$data = $user;
 
-		if ( sizeof($user->pictures) > 0 )
-	    	$data["picture"] = $user->pictures[0]->fileBase64( ProfileRepository::IMG_PATH_NAME );
+     	$data["picture"] = $user->pictureProfile();
 
     	return response($data);
 
     }
 
-    public function savePhotoCrop( Request $request ){
-
+    public function updateProfile( Request $request ){
+		
 		$user  = auth()->guard('api')->user();
-
 		$input = $request->all();
-
 		// Can not update e-mail 
 		unset($input['email']);
 
-		$this->profileRepository->updateProfile( $user, $input, $request->file("picture") );
 
-		$picture = '';
+		$this->profileRepository->updateProfile( $user, $input );
 
 		$user = User::find($user->getKey());
 
-		if ( sizeof($user->pictures) > 0 )
-			$picture = $user->pictures[0]->fileBase64( ProfileRepository::IMG_PATH_NAME );
+		return response(["name"=> $user->name, "email" => $user->email, "picture"=> $user->pictureProfile() ]);
 
-		return response(["name"=> $user->name, "email" => $user->email, "picture"=> $picture ]);
+    }
+
+    public function updatePictureProfile( Request $request ){
+
+		$user  = auth()->guard('api')->user();
+
+		$this->profileRepository->updatePictureProfile( $user, $request->file("picture") );
+
+		$user = User::find($user->getKey());
+
+		return response(["name"=> $user->name, "email" => $user->email, "picture"=> $user->pictureProfile() ]);
     }
 }

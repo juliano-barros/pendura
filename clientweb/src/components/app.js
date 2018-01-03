@@ -11,10 +11,12 @@ import Layout_full from '../layouts/layout_full';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
+export const penduraStore = createStoreWithMiddleware(reducers);
+
 export default class App extends Component {
   render() {
     return (
-	  <Provider store={createStoreWithMiddleware(reducers)}>
+	  <Provider store={penduraStore}>
 		  <BrowserRouter>
 	  		<div>
 				<Switch>

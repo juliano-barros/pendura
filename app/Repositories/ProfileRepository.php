@@ -15,10 +15,16 @@ class ProfileRepository extends Repository
         return new User();
     }
 
+    public function updateProfile( User $user, array $data ){
+		if(isset($data["name"])){
+			$user->name = $data["name"];
+			$user->save();
+		}
+		return true;
+    }
 
-    public function updateProfile( User $user, array $data, $file ){
+    public function updatePictureProfile( User $user, $file ){
 		
-		$user->fill($data);
 
 		if ( $file ){
 
@@ -40,6 +46,8 @@ class ProfileRepository extends Repository
 			$user->pictures()->create($input);
 
 		}    	
+
+		return true;
     }
 
 }
