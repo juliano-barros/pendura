@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PATHS } from '../components/routes';
+import {logout} from '../actions/login_actions';
 
 class LayoutFullAside extends Component {
 
@@ -17,7 +18,6 @@ class LayoutFullAside extends Component {
 			        		</div>
 			        		<div className="pull-left info">
 			          			<p>{this.props.profile.name}</p>
-			          			<a ><i className="fa fa-circle text-success"></i> Online</a>
 			        		</div>
 		      			</div>
 			      		<ul className="sidebar-menu" data-widget="tree">
@@ -41,7 +41,7 @@ class LayoutFullAside extends Component {
 					          			</Link>
 					          		</li>
 			          				<li>
-					          			<Link to={PATHS.register} >
+					          			<Link to="/" onClick={this.props.logout} >
 					          				<i className="fa fa-circle-o"></i> Logout
 					          			</Link>
 					          		</li>
@@ -59,4 +59,4 @@ function mapStateToProps({profile}){
 	return {profile}
 }
 
-export default connect(mapStateToProps)(LayoutFullAside);
+export default connect(mapStateToProps,{logout})(LayoutFullAside);

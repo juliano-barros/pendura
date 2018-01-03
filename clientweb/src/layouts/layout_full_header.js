@@ -20,10 +20,11 @@ class LayoutFullHeader extends Component {
 		return (
 			<div>
 			  	<header className="main-header">
-			    	<a href="../../index2.html" className="logo">
+
+			    	<Link to="/home" className="logo">
 			      		<span className="logo-mini"><b>P</b>en</span>
 			      		<span className="logo-lg"><b>Pendura</b></span>
-			    	</a>
+			    	</Link>
 			    	<nav className="navbar navbar-static-top">
 				      	<a className="sidebar-toggle" data-toggle="push-menu" role="button">
 				        	<span className="sr-only">Toggle navigation</span>
