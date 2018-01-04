@@ -11,6 +11,7 @@ import { BoxRefreshLTE,	BoxWidgetLTE, ControlSidebarLTE,DirectChatLTE,LayoutLTE,
 
 import HomeIndex from '../components/home/home_index';
 import ProfileIndex from '../components/profile/profile_index';
+import ProductIndex from '../components/product/product_index';
 
 class Layout_full extends Component {
 
@@ -34,6 +35,7 @@ class Layout_full extends Component {
 				    <section className="content">
 	  						<Route path={PATHS.home} component={HomeIndex} />
 	  						<Route path={PATHS.profile} component={ProfileIndex} />
+	  						<Route path={PATHS.product} component={ProductIndex} />
 	  						<Redirect to={PATHS.home} />
   					</section>
   				</div>

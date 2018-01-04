@@ -29,6 +29,19 @@ Route::middleware('auth:api')->post('/profile/updatePictureProfile', 'ProfileCon
 Route::middleware('auth:api')->post('/profile/updateProfile', 'ProfileController@updateProfile');
 
 
+Route::middleware('auth:api')->group( function() {
+
+	Route::apiResource('product', 'ProductController');
+	Route::post('/product/uploadPicture', 'ProductController@uploadPictureProduct');
+
+
+});
+
+// Route::middleware('auth:api')->post('/product', 'ProfileController@updateProfile');
+// Route::middleware('auth:api')->post('/product/updateProfile', 'ProfileController@updateProfile');
+// Route::middleware('auth:api')->post('/product/updateProfile', 'ProfileController@updateProfile');
+// Route::middleware('auth:api')->post('/product/updateProfile', 'ProfileController@updateProfile');
+
 
 Route::post('/registeruser', 'RegisterNewController@create');
 Route::post('/register/hasAlreadyUser', 'RegisterNewController@hasAlreadyUser');

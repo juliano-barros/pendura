@@ -11,8 +11,6 @@ class ProfileController extends Controller
 {
     //
 
-
-
     private $profileRepository;
 
     public function __construct( ProfileRepository $profile ){

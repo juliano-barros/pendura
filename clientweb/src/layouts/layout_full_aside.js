@@ -23,13 +23,18 @@ class LayoutFullAside extends Component {
 			      		<ul className="sidebar-menu" data-widget="tree">
 			        		<li className="header">MAIN NAVIGATION</li>
 			        		<li className="treeview">
-			          			<Link to="/user/register" >
+			          			<Link to={PATHS.register} >
 				            		<i className="fa fa-dashboard"></i> <span>Usuários</span>
 				            		<span className="pull-right-container">
 			              				<i className="fa fa-angle-left pull-right"></i>
 			            			</span>
 			          			</Link>
 			          			<ul className="treeview-menu">
+			          				<li>
+					          			<Link to={PATHS.product} >
+					          				<i className="fa fa-circle-o"></i> Produtos
+					          			</Link>
+					          		</li>
 			          				<li>
 					          			<Link to={PATHS.profile} >
 					          				<i className="fa fa-circle-o"></i> Profile

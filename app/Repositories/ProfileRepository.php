@@ -30,15 +30,15 @@ class ProfileRepository extends Repository
 
 			$fileName = $user->id . rand(). "." . $file->getClientOriginalExtension();
 
-			$input['path'] = ProfileRepository::IMG_PATH_NAME;
+			$input['path'] = ProfileRepository::IMG_PATH_NAME . $user->id . "/";
 			$input['name'] = $fileName;
 			$input['original_name'] = $file->getClientOriginalName();
 
-			$file->move("profilePicture", $fileName);
+			$file->move(ProfileRepository::IMG_PATH_NAME . $user->id, $fileName);
 			
 			if ( sizeof( $user->pictures ) > 0 ){
 
-				unlink($user->pictures[0]->fileName( ProfileRepository::IMG_PATH_NAME ) );
+				unlink($user->pictures[0]->fileName( ProfileRepository::IMG_PATH_NAME . $user->id . "/" ) );
 				$user->pictures()->delete();
 				
 			}
@@ -47,7 +47,7 @@ class ProfileRepository extends Repository
 
 		}    	
 
-		return true;
+		return $user;
     }
 
 }

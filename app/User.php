@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\AccessToken;
 use App\Repositories\ProfileRepository;
-
+use App\Product;
 
 class User extends Authenticatable
 {
@@ -36,10 +36,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function pictures()
-    {
-        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+    public function pictures(){
 
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
         return $this->morphMany(Picture::class, 'picturable');
     }
 
@@ -48,18 +47,32 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accessTokens()
-    {
+    public function accessTokens(){
+
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(AccessToken::class);
+
     }
 
     public function pictureProfile(){
-        
+
         if ( sizeof($this->pictures) > 0 )
-            return $this->pictures[0]->fileBase64( ProfileRepository::IMG_PATH_NAME );
+            return $this->pictures[0]->fileBase64( ProfileRepository::IMG_PATH_NAME . $this->id . "/" );
 
         return "";
+
+    }
+
+    /**
+     * User has many Products.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(){
+
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasMany(Product::class);
+
     }
 
 }
