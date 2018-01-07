@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use App\User;
 use App\Product;
+use Yajra\Datatables\Datatables;
 
 class ProductController extends Controller
 {
@@ -76,5 +77,11 @@ class ProductController extends Controller
 		return response(["name"=> $product->name, "price" => $product->price, "picture"=> $product->pictureProduct() ]);
 
     }
+
+    public function anyData(){
+
+    	return Datatables::of(Product::query())->make(true);
+
+	}
 
 }

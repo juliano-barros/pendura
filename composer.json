@@ -12,7 +12,8 @@
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
         "optimus/api-consumer": "^0.2.3",
-        "optimus/genie": "^2.1"
+        "optimus/genie": "^2.1",
+        "yajra/laravel-datatables-oracle": "^8.3"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

@@ -33,6 +33,8 @@ Route::middleware('auth:api')->group( function() {
 
 	Route::apiResource('product', 'ProductController');
 	Route::post('/product/uploadPicture', 'ProductController@uploadPictureProduct');
+	Route::post('/product/anyData', 'ProductController@anyData');
+
 
 
 });

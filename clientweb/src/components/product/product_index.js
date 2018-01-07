@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {loadProducts} from '../../actions/product_actions';
+import { loadProducts } from '../../actions/product_actions';
 import $ from 'jquery';
-import _ from 'lodash';
+import {ROOT_URL} from '../../actions';
+import Functions from '../../util/functions';
+import DataTableReact from '../../containers/datatable/datatable';
 
 class ProductIndex extends Component {
-
-	onSubmit(values){
-	}
-
-	componentWillUpdate(){
-		//	this.props.product.picture = `https://dummyimage.com/100x100/AAA/000.gif`;
-	}
-
-	componentDidMount(){
-		this.props.loadProducts();
-
-	}
 
 	componentDidUpdate(){
          $(`#imgPicture`).height( 100 );
@@ -51,7 +41,19 @@ class ProductIndex extends Component {
 			      </ol>
 			    </section>
 				<div className="row">
-					{this.renderProductList()}
+					<div className="">
+					<DataTableReact 	
+						url={`${ROOT_URL}product/anyData`} 
+						id="productTable"  
+						beforeSend={Functions.addRequestHeader} 
+						columns={
+									[ 
+										{data: 'id', name: 'id', columnHeader: 'ID'}, 
+										{data: 'name', name: 'name', columnHeader: 'Nome'} 
+									] 
+								}
+					/>
+				</div>
 				</div>
 			</div>
 
