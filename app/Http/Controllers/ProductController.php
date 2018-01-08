@@ -80,7 +80,9 @@ class ProductController extends Controller
 
     public function anyData(){
 
-    	return Datatables::of(Product::query())->make(true);
+        $user = auth()->guard('api')->user();
+
+    	return Datatables::of($user->products())->make(true);
 
 	}
 

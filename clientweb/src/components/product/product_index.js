@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loadProducts } from '../../actions/product_actions';
 import $ from 'jquery';
 import {ROOT_URL} from '../../actions';
 import Functions from '../../util/functions';
 import DataTableReact from '../../containers/datatable/datatable';
+import { PATHS } from '../routes';
 
 class ProductIndex extends Component {
 
@@ -40,21 +42,24 @@ class ProductIndex extends Component {
 			        <li className="active">Index</li>
 			      </ol>
 			    </section>
-				<div className="row">
-					<div className="">
-					<DataTableReact 	
-						url={`${ROOT_URL}product/anyData`} 
-						id="productTable"  
-						beforeSend={Functions.addRequestHeader} 
-						columns={
-									[ 
-										{data: 'id', name: 'id', columnHeader: 'ID'}, 
-										{data: 'name', name: 'name', columnHeader: 'Nome'} 
-									] 
-								}
-					/>
-				</div>
-				</div>
+			    <section className="content">
+			    	<div className="row">
+			    		<Link to={PATHS.home}> <div className="btn btn-success">Criar</div></Link>
+					</div>
+			    	<div className="row">
+						<DataTableReact 	
+							url={`${ROOT_URL}product/anyData`} 
+							id="productTable"  
+							beforeSend={Functions.addRequestHeader} 
+							columns={
+										[ 
+											{data: 'id', name: 'id', columnHeader: 'ID'}, 
+											{data: 'name', name: 'name', columnHeader: 'Nome'} 
+										] 
+									}
+						/>
+					</div>
+			    </section>
 			</div>
 
 		)
