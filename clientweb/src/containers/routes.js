@@ -3,5 +3,6 @@ export const PATHS = {
 	profile: '/profile',
 	user: '/user/user',
 	product: '/product',
+	product_form: '/product/:id',
 	register: '/user/register'
 }

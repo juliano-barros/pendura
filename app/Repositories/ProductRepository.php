@@ -21,10 +21,12 @@ class ProductRepository extends Repository
     public function create(array $data)
     {
     	$this->user = auth()->guard('api')->user();
+        
         $product = $this->getModel();
         $product->fill($data);
-        $product->user = $this->user;
+        $product->user_id = $this->user->id;
         $product->save();
+
         return $product;
     }   
 

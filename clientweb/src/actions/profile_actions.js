@@ -1,6 +1,6 @@
 import Requests, { POST } from '../util/requests';
 import { ROOT_URL } from './';
-import { penduraStore } from '../components/app';
+import { penduraStore } from '../containers/app';
 
 
 export const PROFILE_PROFILE_SUCCESS = 'profile_profile_success';

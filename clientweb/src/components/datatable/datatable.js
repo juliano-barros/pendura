@@ -116,7 +116,27 @@ class DataTableReact extends Component{
 						}
 					}
 				}
-			};		
+			}
+			var activeEl;
+
+			try {
+				// Because this approach is destroying and recreating the paging
+				// elements, focus is lost on the select button which is bad for
+				// accessibility. So we want to restore focus once the draw has
+				// completed
+				activeEl = $(host).find(document.activeElement).data('dt-idx');
+			}
+			catch (e) {}
+
+			attach(
+				$(host).empty().html('<ul class="pagination"/>').children('ul'),
+				buttons
+			);
+
+			if ( activeEl !== undefined ) {
+				$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
+			}
+					
 		}
 		
 		$.DataTable = DataTable;

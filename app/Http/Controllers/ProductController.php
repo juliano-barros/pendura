@@ -34,17 +34,18 @@ class ProductController extends Controller
 
     public function show(Request $request, $id){
 
-    	$product = Product::find($id);
+    	$product = Product::findOrFail($id);
 
-    	$product["picture"] = $product->pictureProduct();
+    	//$product["picture"] = $product->pictureProduct();
 
     	return response($product);
     	
     }
 
     public function store( Request $request ){
-
-    	$product = $this->productRepository->create($request->all());
+        
+        $input = $request->all();
+    	$product = $this->productRepository->create($input);
 
     	return response($product);
 
@@ -52,7 +53,9 @@ class ProductController extends Controller
 
     public function destroy(Request $request, $id){
 
-    	$product = Product::find($id);
+        $user = auth()->guard('api')->user();
+
+    	$product =  $user->products()->find($id);
     	$product->delete();
 
     	return response(["id"=>$id, "deleted" =>true ]);
@@ -60,8 +63,11 @@ class ProductController extends Controller
 
     public function update( Request $request, $id ){
 
+        $user = auth()->guard('api')->user();
+
     	$input = $request->all();
-    	$product = Product::find($id);
+    	$product = $user->products()->findOrFail($id);
+
     	$product = $this->productRepository->update( $product, $input );
 
     	return response($product);

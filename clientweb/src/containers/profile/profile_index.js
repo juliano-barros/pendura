@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { profileRequest, uploadPictureProfile, updateProfile } from '../../actions/profile_actions';
 import $ from 'jquery';
-import ProgressBarLte from '../../containers/progress/progresslte';
+import ProgressBarLte from '../../components/progress/progresslte';
+import {SectionHeader, SectionBody } from '../../components/layout/adminlte/layout';
+import Functions from '../../util/functions';
 
 class ProfileIndex extends Component {
 
@@ -23,8 +25,6 @@ class ProfileIndex extends Component {
 
 	}
 
-
-
 	componentWillUpdate(){
 		if ( ( ! this.props.profile.picture) || (this.props.profile.picture === '') ) {
 			this.props.profile.picture = `https://dummyimage.com/300x300/AAA/000.gif`;
@@ -35,23 +35,6 @@ class ProfileIndex extends Component {
          $(`#imgPicture`).height( 300 );
 
 	}
-
- 	renderField(field){
-
-	    const { meta: { touched, error } } = field;
-	    const className=`form-group ${ touched && error ? 'has-error' : ''} has-feedback`;
-
- 		return( 
-  		    <div className={className}>
-                  <label >{field.placeholder}</label>
-  		    	<input className="form-control" type={field.type} {...field.input} />
-        		<div className ="help-block">
-          			{ touched ? error : '' }
-        		</div>
-  		    </div>
-		);
-
- 	}
 
  	renderJcrop(field){
  		if (field.input.value !== " " ){
@@ -89,17 +72,11 @@ class ProfileIndex extends Component {
 		return (
 
 			<div>
-			    <section className="content-header">
-			      <h1>
-			        Profile
-			        <small>Profile</small>
-			      </h1>
-			      <ol className="breadcrumb">
+				<SectionHeader main="Profile" secondary="profile">
 			        <li><i className="fa fa-dashboard"></i> profile</li>
 			        <li className="active">profile</li>
-			      </ol>
-			    </section>
-				<div className="row">
+				</SectionHeader>
+		    	<SectionBody>
 					<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 						<div className = "col-sm-12">
 							<div className="col-sm-6">
@@ -111,13 +88,13 @@ class ProfileIndex extends Component {
 							<div className="col-sm-6">
 					          	<Field
 				            	  name="name"
-					              component ={this.renderField}
+					              component ={Functions.renderField}
 					              type="text"
 					              placeholder="Nome"
 					            />
 					          	<Field
 				            	  name="email"
-					              component ={this.renderField}
+					              component ={Functions.renderField}
 					              type="text"
 					              placeholder="E-mail"
 					            />
@@ -125,7 +102,7 @@ class ProfileIndex extends Component {
 				            <button type="submit" className="btn btn-primary pull-right"> Salvar </button>
 						</div>
 					</form>
-				</div>
+		    	</SectionBody>
 			</div>
 
 		)

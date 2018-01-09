@@ -19,21 +19,6 @@ class RegisterIndex extends Component {
   		)
  	}
 
- 	renderField(field){
-
-	    const { meta: { touched, error } } = field;
-	    const className=`form-group ${ touched && error ? 'has-error' : ''} has-feedback`;
-
- 		return( 
-  		    <div className={className}>
-  		    	<input className="form-control" type={field.type} placeholder={field.placeholder} {...field.input} />
-        		<div className ="help-block">
-          			{ touched ? error : '' }
-        		</div>
-  		    </div>
-		);
-
- 	}
 
  	onSubmit(values){
  		this.props.registerRequest(values)
@@ -49,7 +34,7 @@ class RegisterIndex extends Component {
  			this.onLogin( this.props.fieldsForm );
 	 		if ( this.props.login.success_login ){
 	 			this.props.cleanRegisterSuccess();
-	 			this.props.history.push('/full/home');
+	 			this.props.history.push(PATHS.home);
 	 		}
  		}
 
@@ -105,25 +90,25 @@ class RegisterIndex extends Component {
 					<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 			          	<Field
 		            	  name="name"
-			              component ={this.renderField}
+			              component ={Functions.renderField}
 			              type="text"
 			              placeholder="Nome"
 			            />
 			            <Field
 			              name="email"
-  			              component ={this.renderField}
+  			              component ={Functions.renderField}
   			              placeholder="Email"
 			              type="email"
 			            />
 			          	<Field
 			            	name="password"
-			            	component ={this.renderField}
+			            	component ={Functions.renderField}
 			            	placeholder="Password"
 			            	type="password"
 			          	/>
 			          	<Field
 				            name="password_retype"
-				            component ={this.renderField}
+				            component ={Functions.renderField}
 				            placeholder="Password"
 				            type="password"
 		    	      	/>

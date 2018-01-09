@@ -5,8 +5,9 @@ import { loadProducts } from '../../actions/product_actions';
 import $ from 'jquery';
 import {ROOT_URL} from '../../actions';
 import Functions from '../../util/functions';
-import DataTableReact from '../../containers/datatable/datatable';
+import DataTableReact from '../../components/datatable/datatable';
 import { PATHS } from '../routes';
+import {SectionHeader, SectionBody } from '../../components/layout/adminlte/layout';
 
 class ProductIndex extends Component {
 
@@ -32,34 +33,30 @@ class ProductIndex extends Component {
 		return (
 
 			<div>
-			    <section className="content-header">
-			      <h1>
-			        Produto
-			        <small>Produto</small>
-			      </h1>
-			      <ol className="breadcrumb">
-			        <li><i className="fa fa-dashboard"></i> produto</li>
-			        <li className="active">Index</li>
-			      </ol>
-			    </section>
-			    <section className="content">
-			    	<div className="row">
-			    		<Link to={PATHS.home}> <div className="btn btn-success">Criar</div></Link>
+				<SectionHeader main="Produto" secondary="produto">
+			        <li><i className="fa fa-dashboard"></i> profile</li>
+			        <li className="active">profile</li>
+				</SectionHeader>
+			    <SectionBody>
+					<div className="box-header">
+			    		<Link to={`${PATHS.product}/0`}> <div className="btn btn-success pull-right">Novo produto</div></Link>
 					</div>
-			    	<div className="row">
-						<DataTableReact 	
-							url={`${ROOT_URL}product/anyData`} 
-							id="productTable"  
-							beforeSend={Functions.addRequestHeader} 
-							columns={
-										[ 
-											{data: 'id', name: 'id', columnHeader: 'ID'}, 
-											{data: 'name', name: 'name', columnHeader: 'Nome'} 
-										] 
-									}
-						/>
+					<div className="box-body">
+				    	<div className="row">
+							<DataTableReact 	
+								url={`${ROOT_URL}product/anyData`} 
+								id="productTable"  
+								beforeSend={Functions.addRequestHeader} 
+								columns={
+											[ 
+												{data: 'id', name: 'id', columnHeader: 'ID'}, 
+												{data: 'name', name: 'name', columnHeader: 'Nome'} 
+											] 
+										}
+							/>
+						</div>
 					</div>
-			    </section>
+			    </SectionBody>
 			</div>
 
 		)

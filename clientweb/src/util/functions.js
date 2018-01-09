@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class Functions{
 	
 	static isEmailValid(email){
@@ -8,5 +10,22 @@ export default class Functions{
 		request.setRequestHeader("Accept", 'application/json');
         request.setRequestHeader("Authorization", `Bearer ${localStorage.token}`);
 	}
+
+	static renderField(field){
+
+	    const { meta: { touched, error } } = field;
+	    const className=`form-group ${ touched && error ? 'has-error' : ''} has-feedback`;
+
+ 		return( 
+  		    <div className={className}>
+  		    	<input className="form-control" type={field.type} placeholder={field.placeholder} {...field.input} />
+        		<div className ="help-block">
+          			{ touched ? error : '' }
+        		</div>
+  		    </div>
+		);
+
+ 	}
+
 
 }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {logout} from '../actions/login_actions';
 import {profileRequest} from '../actions/profile_actions';
-import { PATHS } from '../components/routes';
+import { PATHS } from '../containers/routes';
 
 class LayoutFullHeader extends Component {
 

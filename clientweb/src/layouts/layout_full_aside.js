@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { PATHS } from '../components/routes';
+import { PATHS } from '../containers/routes';
 import {logout} from '../actions/login_actions';
 
 class LayoutFullAside extends Component {
