@@ -88,7 +88,9 @@ class ProductController extends Controller
 
         $user = auth()->guard('api')->user();
 
-    	return Datatables::of($user->products())->make(true);
+    	return Datatables::of($user->products())->addColumn( 'link', function(Product $prod){
+            return '<a type="button" href="/product/'. $prod->id .'">Html Column</a>';
+        })->rawColumns(['link'])->toJson();
 
 	}
 

@@ -6,7 +6,7 @@ import $ from 'jquery';
 import Functions from '../../util/functions';
 import ProgressBarLte from '../../components/progress/progresslte';
 import {SectionHeader, SectionBody, Loading } from '../../components/layout/adminlte/layout';
-import {loadProduct, updateProduct} from '../../actions/product_actions';
+import {loadProduct, updateProduct,cleanSave} from '../../actions/product_actions';
 import { PATHS } from '../routes';
 
 
@@ -18,11 +18,11 @@ class ProductForm extends Component{
 
 	onSubmit(values){
 		this.props.updateProduct(values, this.props.match.params.id);
-		this.setState({loading: true});
 	}
 
 	componentDidUpdate(){
-		if ( this.props.products.success_save ){		
+		if ( this.props.products.success_save ){
+			this.props.cleanSave();		
 			this.props.history.push(PATHS.product);
 		}
 	}
@@ -36,25 +36,27 @@ class ProductForm extends Component{
 			        <li><i className="fa fa-dashboard"></i> profile</li>
 			        <li className="active">profile</li>
 				</SectionHeader>
-		    	<SectionBody loading={this.props.products.loading}>
+		    	<SectionBody >
 		    		<div className="col-sm-6">
 					</div>
 		    		<div className="col-sm-6">
-			    		<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-				          	<Field
-			            	  name="name"
-				              component ={Functions.renderField}
-				              type="text"
-				              placeholder="Nome"
-				            />
-				          	<Field
-			            	  name="price"
-				              component ={Functions.renderField}
-				              type="text"
-				              placeholder="Preço do produto"
-				            />
-				            <button type="submit" className="btn btn-primary pull-right"> Salvar </button>
-			    		</form>
+		    			<SectionBody loading={this.props.products.loading}>
+				    		<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+					          	<Field
+				            	  name="name"
+					              component ={Functions.renderField}
+					              type="text"
+					              placeholder="Nome"
+					            />
+					          	<Field
+				            	  name="price"
+					              component ={Functions.renderField}
+					              type="text"
+					              placeholder="Preço do produto"
+					            />
+					            <button type="submit" className="btn btn-primary pull-right"> Salvar </button>
+				    		</form>
+			    		</SectionBody>
 					</div>
 	    		</SectionBody>
 			</div>
@@ -85,6 +87,6 @@ ProductForm = reduxForm({
 	form: 'product-form'
 })(ProductForm);
 
-ProductForm = connect(mapStateToProps, {loadProduct,updateProduct})(ProductForm);
+ProductForm = connect(mapStateToProps, {loadProduct,updateProduct,cleanSave})(ProductForm);
 
 export default ProductForm;

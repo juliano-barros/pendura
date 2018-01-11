@@ -1,6 +1,9 @@
-import { PRODUCT_REQUEST, 
+import { 
+		 PRODUCT_REQUEST, 
 		 PRODUCT_REQUEST_ALL, 
 		 PRODUCT_SUCCESS, 
+		 PRODUCT_LOADING,
+		 PRODUCT_CLEAN_SAVE,
 		 PRODUCT_ERROR, 
 		 PRODUCT_REQUEST_UPLOAD_PICUTRE_SUCCESS, 
 		 PRODUCT_REQUEST_UPLOAD_PICUTRE_ERROR, 
@@ -13,7 +16,6 @@ const INITIAL_STATE=[{
 	posts:[{}],
 	loading: true,
 	success_save: false
-
 }]
 
 export default (state=INITIAL_STATE, action)=>{
@@ -32,6 +34,10 @@ export default (state=INITIAL_STATE, action)=>{
 			return { ...state, loading: false, success_save: false };
 		case PRODUCT_REQUEST_ERROR:
 			return { ...state, actualProduct: { name: '', price: '0.00'}, loading: false, success_save: false };
+		case PRODUCT_LOADING:
+			return { ...state, loading: true };
+		case PRODUCT_CLEAN_SAVE:
+			return { ...state, success_save: false };
 		default:
 		  return state;
 	}

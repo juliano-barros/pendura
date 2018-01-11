@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import DataTableNet from 'datatables.net';
+import {Link } from 'react-router-dom';
 
 
 class DataTableReact extends Component{

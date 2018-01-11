@@ -50,7 +50,8 @@ class ProductIndex extends Component {
 								columns={
 											[ 
 												{data: 'id', name: 'id', columnHeader: 'ID'}, 
-												{data: 'name', name: 'name', columnHeader: 'Nome'} 
+												{data: 'name', name: 'name', columnHeader: 'Nome'}, 
+												{data: 'link', name: 'link', columnHeader: 'link'} 
 											] 
 										}
 							/>
