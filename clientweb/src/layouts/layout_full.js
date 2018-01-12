@@ -38,6 +38,7 @@ class Layout_full extends Component {
 						<Route exact path={PATHS.home} component={HomeIndex} />
 						<Route exact path={PATHS.profile} component={ProfileIndex} />
 						<Route exact path={PATHS.product_form} component={ProductForm} />
+						<Route exact path={PATHS.product_form_delete} component={ProductForm} />
 						<Route exact path={PATHS.product} component={ProductIndex} />
 						<Redirect to={PATHS.home} />
   					</section>

@@ -11,6 +11,7 @@ import {SectionHeader, SectionBody } from '../../components/layout/adminlte/layo
 
 class ProductIndex extends Component {
 
+
 	componentDidUpdate(){
          $(`#imgPicture`).height( 100 );
 	}
@@ -26,6 +27,18 @@ class ProductIndex extends Component {
 		}else{
 			return (<div></div>);
 		}
+	}
+
+	onClickUpdateTable(obj){
+		this.props.history.push(`/product/${$($(obj)[0].currentTarget).attr('data-id')}`);
+	}
+	onClickDeleteTable(obj){
+		this.props.history.push(`/product/${$($(obj)[0].currentTarget).attr('data-id')}/delete`);
+	}
+
+	afterProductDraw(){
+		$(`#productTable`).on( 'click', 'tbody button.update-id', this.onClickUpdateTable.bind(this) )
+		$(`#productTable`).on( 'click', 'tbody button.delete-id', this.onClickDeleteTable.bind(this) )
 	}
 
 	render(){
@@ -47,11 +60,12 @@ class ProductIndex extends Component {
 								url={`${ROOT_URL}product/anyData`} 
 								id="productTable"  
 								beforeSend={Functions.addRequestHeader} 
+								afterDraw = {this.afterProductDraw.bind(this)}
 								columns={
 											[ 
 												{data: 'id', name: 'id', columnHeader: 'ID'}, 
 												{data: 'name', name: 'name', columnHeader: 'Nome'}, 
-												{data: 'link', name: 'link', columnHeader: 'link'} 
+												{data: 'link', name: 'link', columnHeader: '', width: "30%",  "bSortable": false } 
 											] 
 										}
 							/>

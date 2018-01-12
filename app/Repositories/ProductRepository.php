@@ -61,6 +61,6 @@ class ProductRepository extends Repository
 
 		}    	
 
-		return true;
+		return $product;
     }
 }

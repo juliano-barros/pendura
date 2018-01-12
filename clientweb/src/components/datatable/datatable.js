@@ -145,12 +145,16 @@ class DataTableReact extends Component{
 	}
 
 	componentDidMount(){
-		$(`#${this.props.id}`).DataTable({
+		var table = $(`#${this.props.id}`).DataTable({
 	        processing: true,
 	        serverSide: true,
 	        ajax: { url: this.props.url, method: this.props.method, beforeSend: this.props.beforeSend },
 	        columns: this.props.columns
 	    });
+
+
+ 
+		table.on( 'draw', this.props.afterDraw );
 
 	}
 
@@ -182,7 +186,8 @@ DataTableReact.defaultProps = {
 	url: '',
 	columns: [{}],
 	method: 'POST',
-	beforeSend: (request)=>{}
+	beforeSend: (request)=>{},
+	afterDraw: ()=>{ console.log( "aqui")}
 
 }
 

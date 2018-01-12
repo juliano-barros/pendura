@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function show(Request $request, $id){
 
     	$product = Product::findOrFail($id);
-
+        $product["picture"] = $product->pictureProduct();
     	//$product["picture"] = $product->pictureProduct();
 
     	return response($product);
@@ -76,9 +76,9 @@ class ProductController extends Controller
 
     public function uploadPictureProduct(Request $request, $id){
 
-    	$product = Product::find($id);
 
-		$product = $this->profileRepository->updatePictureProfile( $product, $request->file("picture") );
+       	$product = Product::find($id);
+		$product = $this->productRepository->updatePictureProduct( $product, $request->file("picture") );
 
 		return response(["name"=> $product->name, "price" => $product->price, "picture"=> $product->pictureProduct() ]);
 
@@ -89,7 +89,7 @@ class ProductController extends Controller
         $user = auth()->guard('api')->user();
 
     	return Datatables::of($user->products())->addColumn( 'link', function(Product $prod){
-            return '<a type="button" href="/product/'. $prod->id .'">Html Column</a>';
+            return '<button class="btn btn-danger delete-id" data-id="'. $prod->id .'">Delete</button> <button class="btn btn-primary update-id" data-id="'. $prod->id .'">Alterar</button>';
         })->rawColumns(['link'])->toJson();
 
 	}

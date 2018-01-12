@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Picture;
+use App\Repositories\ProductRepository;
 use App\User;
 
 class Product extends Model

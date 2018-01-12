@@ -6,7 +6,7 @@ import $ from 'jquery';
 import Functions from '../../util/functions';
 import ProgressBarLte from '../../components/progress/progresslte';
 import {SectionHeader, SectionBody, Loading } from '../../components/layout/adminlte/layout';
-import {loadProduct, updateProduct,cleanSave} from '../../actions/product_actions';
+import {loadProduct, updateProduct,cleanSave,deleteProduct,uploadPictureProduct} from '../../actions/product_actions';
 import { PATHS } from '../routes';
 
 
@@ -17,7 +17,22 @@ class ProductForm extends Component{
 	}
 
 	onSubmit(values){
-		this.props.updateProduct(values, this.props.match.params.id);
+		if ( this.isDelete() ){
+			this.props.deleteProduct(this.props.match.params.id);
+		}else{
+			this.props.updateProduct(values, this.props.match.params.id);
+		}
+	}
+
+	uploadPicture(){
+
+		if ( typeof this.props.products.picture === "object" ){
+			var formData = new FormData()
+			formData.append( 'picture', this.props.products.picture, this.props.products.picture.name);
+			this.props.uploadPictureProduct(formData, this.props.match.params.id);
+		}
+
+
 	}
 
 	componentDidUpdate(){
@@ -25,7 +40,51 @@ class ProductForm extends Component{
 			this.props.cleanSave();		
 			this.props.history.push(PATHS.product);
 		}
+         $(`#imgPicture`).height( 300 );
 	}
+
+	isDelete(){
+		return ( this.props.location.pathname.indexOf('/delete') > 0 )
+	}
+
+	renderButton(){
+		var className = "btn-primary";
+		var captionButton = "Salvar";
+		if ( this.isDelete() ){
+			var className = "btn-danger";
+			var captionButton = "Delete";
+		}
+		return ( <button type="submit" className={`btn ${className} pull-right`}> {captionButton} </button> )
+	}
+
+	loadImageFromClientSide(evt){
+		
+	    var tgt = evt.target || window.event.srcElement,
+	        files = tgt.files;
+
+	    // FileReader support
+	    if (FileReader && files && files.length) {
+	        var fr = new FileReader();
+	        fr.onload = function () {
+	            this.props.products.picture = $("#file").prop("files")[0];
+	            $("#imgPicture").attr( 'src', fr.result);
+	            this.uploadPicture();
+	        }.bind(this)
+
+	        fr.readAsDataURL(files[0]);
+	    }
+
+	    // Not supported
+	    else {
+	    }
+	}
+
+ 	renderJcrop(field){
+ 		if (field.input.value !== " " ){
+  			delete field.input.value; // <-- just delete the value property
+  		}
+  		return <input type="file" id="file" {...field.input} />;
+ 	}
 
 	render(){
 		const {handleSubmit} = this.props;
@@ -33,11 +92,16 @@ class ProductForm extends Component{
 
 			<div>
 				<SectionHeader main="Profile" secondary="profile">
-			        <li><i className="fa fa-dashboard"></i> profile</li>
-			        <li className="active">profile</li>
+			        <li><i className="fa fa-dashboard"></i> Produto</li>
+			        <li className="active">produto</li>
 				</SectionHeader>
 		    	<SectionBody >
 		    		<div className="col-sm-6">
+		    			<SectionBody loading={this.props.products.loading}>
+						 	<img id="imgPicture"  className="form-control" src={this.props.products.picture} />
+						 	<ProgressBarLte value={this.props.products.uploadPercent} />
+							<Field name="picture" className="form-control" component={this.renderJcrop.bind(this)} onChange={this.loadImageFromClientSide.bind(this)} />
+			    		</SectionBody>
 					</div>
 		    		<div className="col-sm-6">
 		    			<SectionBody loading={this.props.products.loading}>
@@ -54,7 +118,7 @@ class ProductForm extends Component{
 					              type="text"
 					              placeholder="Preço do produto"
 					            />
-					            <button type="submit" className="btn btn-primary pull-right"> Salvar </button>
+					            {this.renderButton()}
 				    		</form>
 			    		</SectionBody>
 					</div>
@@ -87,6 +151,6 @@ ProductForm = reduxForm({
 	form: 'product-form'
 })(ProductForm);
 
-ProductForm = connect(mapStateToProps, {loadProduct,updateProduct,cleanSave})(ProductForm);
+ProductForm = connect(mapStateToProps, {loadProduct,updateProduct,cleanSave,deleteProduct, uploadPictureProduct})(ProductForm);
 
 export default ProductForm;

@@ -32,7 +32,7 @@ Route::middleware('auth:api')->post('/profile/updateProfile', 'ProfileController
 Route::middleware('auth:api')->group( function() {
 
 	Route::apiResource('product', 'ProductController');
-	Route::post('/product/uploadPicture', 'ProductController@uploadPictureProduct');
+	Route::post('/product/uploadPicture/{id}', 'ProductController@uploadPictureProduct');
 	Route::post('/product/anyData', 'ProductController@anyData');
 
 
