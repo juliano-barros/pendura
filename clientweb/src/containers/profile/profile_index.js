@@ -73,7 +73,7 @@ class ProfileIndex extends Component {
 
 			<div>
 				<SectionHeader main="Profile" secondary="profile">
-			        <li><i className="fa fa-dashboard"></i> profile</li>
+			        <li><i className="fa  fa-user-md"></i> profile</li>
 			        <li className="active">profile</li>
 				</SectionHeader>
 		    	<SectionBody>

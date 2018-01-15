@@ -27,5 +27,9 @@ export default class Functions{
 
  	}
 
+	static isNumeric(number){
+	 	return /^-?\d+\.?\d*$/.test( number );
+	}
+
 
 }

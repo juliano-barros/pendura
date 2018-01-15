@@ -19,7 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-
 Route::post('/login', 'LoginNewController@login');
 Route::post('/login/refresh', 'LoginNewController@refresh');
 
@@ -28,14 +27,17 @@ Route::middleware('auth:api')->post('/profile/profile', 'ProfileController@profi
 Route::middleware('auth:api')->post('/profile/updatePictureProfile', 'ProfileController@updatePictureProfile');
 Route::middleware('auth:api')->post('/profile/updateProfile', 'ProfileController@updateProfile');
 
-
 Route::middleware('auth:api')->group( function() {
 
 	Route::apiResource('product', 'ProductController');
 	Route::post('/product/uploadPicture/{id}', 'ProductController@uploadPictureProduct');
 	Route::post('/product/anyData', 'ProductController@anyData');
 
-
+	//Route::apiResource('friends', 'UserFriendsController');
+	Route::post('/friends/anyData', 'UserFriendsController@anyData' );
+	Route::post('/friends/{idUserFriend}', 'UserFriendsController@store');
+	Route::delete('/friends/{idUserFriend}', 'UserFriendsController@destroy');
+	//Route::post('/userFriends/anyData', 'UserFriendsController@anyData');
 
 });
 

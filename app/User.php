@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\AccessToken;
 use App\Repositories\ProfileRepository;
 use App\Product;
+use App\User_friends;
 
 class User extends Authenticatable
 {
@@ -73,6 +74,17 @@ class User extends Authenticatable
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(Product::class);
 
+    }
+
+    /**
+     * User has many Friends.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function friends()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasMany(User_friends::class);
     }
 
 }

@@ -23,8 +23,8 @@ class LayoutFullAside extends Component {
 			      		<ul className="sidebar-menu" data-widget="tree">
 			        		<li className="header">MAIN NAVIGATION</li>
 			        		<li className="treeview">
-			          			<Link to={PATHS.register} >
-				            		<i className="fa fa-dashboard"></i> <span>Usuários</span>
+			          			<Link to="" >
+				            		<i className="fa fa-database"></i> <span>Tabelas</span>
 				            		<span className="pull-right-container">
 			              				<i className="fa fa-angle-left pull-right"></i>
 			            			</span>
@@ -32,17 +32,42 @@ class LayoutFullAside extends Component {
 			          			<ul className="treeview-menu">
 			          				<li>
 					          			<Link to={PATHS.product} >
-					          				<i className="fa fa-circle-o"></i> Produtos
+					          				<i className="fa fa-industry"></i> Produtos
 					          			</Link>
 					          		</li>
+				          		</ul>
+			        		</li>
+			        		<li className="treeview">
+			          			<Link to="" >
+				            		<i className="fa fa-group"></i> <span>Friends</span>
+				            		<span className="pull-right-container">
+			              				<i className="fa fa-angle-left pull-right"></i>
+			            			</span>
+			          			</Link>
+			          			<ul className="treeview-menu">
+			          				<li>
+					          			<Link to={PATHS.friends} >
+					          				<i className="fa fa-group"></i> Solicitação de amizade
+					          			</Link>
+					          		</li>
+			          			</ul>
+			        		</li>
+			        		<li className="treeview">
+			          			<Link to={PATHS.register} >
+				            		<i className="fa fa-user-md"></i> <span>Usuário</span>
+				            		<span className="pull-right-container">
+			              				<i className="fa fa-angle-left pull-right"></i>
+			            			</span>
+			          			</Link>
+			          			<ul className="treeview-menu">
 			          				<li>
 					          			<Link to={PATHS.profile} >
-					          				<i className="fa fa-circle-o"></i> Profile
+					          				<i className="fa fa-user-md"></i> Profile
 					          			</Link>
 					          		</li>
 			          				<li>
 					          			<Link to={PATHS.register} >
-					          				<i className="fa fa-circle-o"></i> Registar novo usuário
+					          				<i className="fa fa-user-plus"></i> Registar novo usuário
 					          			</Link>
 					          		</li>
 			          				<li>

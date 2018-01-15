@@ -8,6 +8,7 @@ import ProgressBarLte from '../../components/progress/progresslte';
 import {SectionHeader, SectionBody, Loading } from '../../components/layout/adminlte/layout';
 import {loadProduct, updateProduct,cleanSave,deleteProduct,uploadPictureProduct} from '../../actions/product_actions';
 import { PATHS } from '../routes';
+import MaskMoney from '../../components/maskmoney/maskmoney';
 
 
 class ProductForm extends Component{
@@ -17,6 +18,9 @@ class ProductForm extends Component{
 	}
 
 	onSubmit(values){
+
+		values.price = values.price.replace(',', '');
+
 		if ( this.isDelete() ){
 			this.props.deleteProduct(this.props.match.params.id);
 		}else{
@@ -41,6 +45,7 @@ class ProductForm extends Component{
 			this.props.history.push(PATHS.product);
 		}
          $(`#imgPicture`).height( 300 );
+
 	}
 
 	isDelete(){
@@ -86,13 +91,19 @@ class ProductForm extends Component{
   		return <input type="file" id="file" {...field.input} />;
  	}
 
+ 	renderMaskMoney(field){
+ 		return(
+ 				<MaskMoney field={field} id={field.input.name} />
+ 			)
+ 	}
+
 	render(){
 		const {handleSubmit} = this.props;
 		return(
 
 			<div>
-				<SectionHeader main="Profile" secondary="profile">
-			        <li><i className="fa fa-dashboard"></i> Produto</li>
+				<SectionHeader main="Produto" secondary="produto">
+			        <li><i className="fa fa-industry"></i> Produto</li>
 			        <li className="active">produto</li>
 				</SectionHeader>
 		    	<SectionBody >
@@ -114,7 +125,7 @@ class ProductForm extends Component{
 					            />
 					          	<Field
 				            	  name="price"
-					              component ={Functions.renderField}
+					              component ={this.renderMaskMoney}
 					              type="text"
 					              placeholder="Preço do produto"
 					            />

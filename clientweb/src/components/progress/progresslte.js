@@ -8,7 +8,7 @@ export default class ProgressBarLte extends Component {
 	                <div className={`progress-bar ${this.props.color} ${this.props.active} ${this.props.layout}`} role="progressbar" aria-valuenow={this.props.value} aria-valuemin="0" aria-valuemax={this.props.valueMax} style={{width:this.props.value + '%'}}>
 	                  <span className="sr-only">20% Complete</span>
 	                </div>
-	              </div>
+             	</div>
 			)
 	}
 

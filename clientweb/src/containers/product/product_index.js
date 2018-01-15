@@ -12,26 +12,10 @@ import {SectionHeader, SectionBody } from '../../components/layout/adminlte/layo
 class ProductIndex extends Component {
 
 
-	componentDidUpdate(){
-         $(`#imgPicture`).height( 100 );
-	}
-
-	renderProductList(){
-		
-		var products = Object.values(this.props.products)
-		if ( typeof products === "object" ){
-			return products.map((product, index)=>(
-				<li  key={index} className="form-control"> {product.id} - {product.name}</li>
-				)
-			);
-		}else{
-			return (<div></div>);
-		}
-	}
-
 	onClickUpdateTable(obj){
 		this.props.history.push(`/product/${$($(obj)[0].currentTarget).attr('data-id')}`);
 	}
+
 	onClickDeleteTable(obj){
 		this.props.history.push(`/product/${$($(obj)[0].currentTarget).attr('data-id')}/delete`);
 	}
@@ -47,7 +31,7 @@ class ProductIndex extends Component {
 
 			<div>
 				<SectionHeader main="Produto" secondary="produto">
-			        <li><i className="fa fa-dashboard"></i> profile</li>
+			        <li><i className="fa fa-industry"></i> profile</li>
 			        <li className="active">profile</li>
 				</SectionHeader>
 			    <SectionBody>
@@ -65,6 +49,7 @@ class ProductIndex extends Component {
 											[ 
 												{data: 'id', name: 'id', columnHeader: 'ID'}, 
 												{data: 'name', name: 'name', columnHeader: 'Nome'}, 
+												{data: 'price', name: 'price', columnHeader: 'Preço'}, 
 												{data: 'link', name: 'link', columnHeader: '', width: "30%",  "bSortable": false } 
 											] 
 										}
@@ -78,9 +63,5 @@ class ProductIndex extends Component {
 	}
 }
 
-function mapStateToProps({products}){
-	return { products };	
-}
-
-export default connect(mapStateToProps, {loadProducts})(ProductIndex)
+export default connect(null, {loadProducts})(ProductIndex)
 

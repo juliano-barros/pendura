@@ -14,6 +14,7 @@ import HomeIndex from '../containers/home/home_index';
 import ProfileIndex from '../containers/profile/profile_index';
 import ProductIndex from '../containers/product/product_index';
 import ProductForm from '../containers/product/product_form';
+import FriendsIndex from '../containers/friends/friends_index';
 
 class Layout_full extends Component {
 
@@ -40,6 +41,7 @@ class Layout_full extends Component {
 						<Route exact path={PATHS.product_form} component={ProductForm} />
 						<Route exact path={PATHS.product_form_delete} component={ProductForm} />
 						<Route exact path={PATHS.product} component={ProductIndex} />
+						<Route exact path={PATHS.friends} component={FriendsIndex} />
 						<Redirect to={PATHS.home} />
   					</section>
   				</div>

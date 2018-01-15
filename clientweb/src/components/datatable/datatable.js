@@ -144,7 +144,8 @@ class DataTableReact extends Component{
 
 	}
 
-	componentDidMount(){
+	tableMount(){
+
 		var table = $(`#${this.props.id}`).DataTable({
 	        processing: true,
 	        serverSide: true,
@@ -152,10 +153,12 @@ class DataTableReact extends Component{
 	        columns: this.props.columns
 	    });
 
-
  
 		table.on( 'draw', this.props.afterDraw );
+	}
 
+	componentDidMount(){
+		this.tableMount();
 	}
 
 	renderHeaders(){
@@ -187,7 +190,7 @@ DataTableReact.defaultProps = {
 	columns: [{}],
 	method: 'POST',
 	beforeSend: (request)=>{},
-	afterDraw: ()=>{ console.log( "aqui")}
+	afterDraw: ()=>{ }
 
 }
 
