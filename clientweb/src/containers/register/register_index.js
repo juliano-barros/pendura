@@ -78,7 +78,6 @@ class RegisterIndex extends Component {
 	render() {
 
 		const {handleSubmit} = this.props;
-
 		return (
 			<div >
 				
@@ -96,7 +95,7 @@ class RegisterIndex extends Component {
 			            />
 			            <Field
 			              name="email"
-  			              component ={Functions.renderField}
+  			              component={Functions.renderField}
   			              placeholder="Email"
 			              type="email"
 			            />

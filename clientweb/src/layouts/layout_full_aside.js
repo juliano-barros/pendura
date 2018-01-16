@@ -1,13 +1,71 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { PATHS } from '../containers/routes';
+import { PATHS, ROUTES } from '../containers/routes';
 import {logout} from '../actions/login_actions';
 
 class LayoutFullAside extends Component {
 
-	render() {
+
+	renderItem(element, i){
+		if ( element.children.length > 0){
+			var active;
+			
+			element.children.map((elementChild, i)=>{
+				if ( this.props.location.pathname.indexOf(elementChild.path) >= 0 ){
+					active = true
+				}
+			})
+
+			var classTreeView = '';
+			if (active){
+				classTreeView = 'active menu-open';
+			}
+
+			return (
+					<li className={`treeview ${classTreeView}`} key={i}>
+	          			<Link to="" >
+		            		<i className={`fa ${element.icon}`}></i> <span>{element.name}</span>
+		            		<span className="pull-right-container">
+	              				<i className="fa fa-angle-left pull-right"></i>
+	            			</span>
+	          			</Link>
+	          			<ul className="treeview-menu">
+	          				{element.children.map((elementChild, i)=>{
+	          					var classLi = '';
+	          					if ( this.props.location.pathname.indexOf( elementChild.path ) >=0 ){
+	          						classLi = 'active'
+	          					}
+		          				return( <li className={classLi} key={i}>
+				          					<Link to={elementChild.path} >
+				          						<i className={`fa ${elementChild.icon}`}></i> {elementChild.name}
+				          					</Link>
+				          				</li>
+				          			)
+
+	          				})}
+	          			</ul>
+					</li>
+				)
+		}
+	}
+
+	renderItens(arrayRoute){
+
 		return (
+      		<ul className="sidebar-menu" data-widget="tree">
+	    		<li className="header">Pendura menu</li>
+				{arrayRoute.map((element, i)=>{
+					return this.renderItem(element, i);
+				})}
+      		</ul>
+		)
+
+	}
+
+
+	render(){
+		return(
 			<div>
 				
 			  	<aside className="main-sidebar">
@@ -20,69 +78,14 @@ class LayoutFullAside extends Component {
 			          			<p>{this.props.profile.name}</p>
 			        		</div>
 		      			</div>
-			      		<ul className="sidebar-menu" data-widget="tree">
-			        		<li className="header">MAIN NAVIGATION</li>
-			        		<li className="treeview">
-			          			<Link to="" >
-				            		<i className="fa fa-database"></i> <span>Tabelas</span>
-				            		<span className="pull-right-container">
-			              				<i className="fa fa-angle-left pull-right"></i>
-			            			</span>
-			          			</Link>
-			          			<ul className="treeview-menu">
-			          				<li>
-					          			<Link to={PATHS.product} >
-					          				<i className="fa fa-industry"></i> Produtos
-					          			</Link>
-					          		</li>
-				          		</ul>
-			        		</li>
-			        		<li className="treeview">
-			          			<Link to="" >
-				            		<i className="fa fa-group"></i> <span>Friends</span>
-				            		<span className="pull-right-container">
-			              				<i className="fa fa-angle-left pull-right"></i>
-			            			</span>
-			          			</Link>
-			          			<ul className="treeview-menu">
-			          				<li>
-					          			<Link to={PATHS.friends} >
-					          				<i className="fa fa-group"></i> Solicitação de amizade
-					          			</Link>
-					          		</li>
-			          			</ul>
-			        		</li>
-			        		<li className="treeview">
-			          			<Link to={PATHS.register} >
-				            		<i className="fa fa-user-md"></i> <span>Usuário</span>
-				            		<span className="pull-right-container">
-			              				<i className="fa fa-angle-left pull-right"></i>
-			            			</span>
-			          			</Link>
-			          			<ul className="treeview-menu">
-			          				<li>
-					          			<Link to={PATHS.profile} >
-					          				<i className="fa fa-user-md"></i> Profile
-					          			</Link>
-					          		</li>
-			          				<li>
-					          			<Link to={PATHS.register} >
-					          				<i className="fa fa-user-plus"></i> Registar novo usuário
-					          			</Link>
-					          		</li>
-			          				<li>
-					          			<Link to="/" onClick={this.props.logout} >
-					          				<i className="fa fa-circle-o"></i> Logout
-					          			</Link>
-					          		</li>
-			          			</ul>
-			        		</li>
-			      		</ul>
-			    	</section>
-			  	</aside>
-			</div>
-		);
+		        		{this.renderItens(ROUTES)}
+	 		      		
+	 		    	</section>
+	 		  	</aside>
+	 		</div>
+	 	)
 	}
+
 }
 
 function mapStateToProps({profile}){

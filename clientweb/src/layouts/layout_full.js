@@ -32,9 +32,9 @@ class Layout_full extends Component {
 	render() {
 		return (
 			<div className="wrapper">
-				<LayoutFullHeader />
-				<LayoutFullAside />
-  				<div className="content-wrapper">
+				<Route path="/" component={LayoutFullHeader} />
+				<Route path="/" component={LayoutFullAside} />
+				<div className="content-wrapper">
 				    <section className="content">
 						<Route exact path={PATHS.home} component={HomeIndex} />
 						<Route exact path={PATHS.profile} component={ProfileIndex} />
@@ -42,7 +42,6 @@ class Layout_full extends Component {
 						<Route exact path={PATHS.product_form_delete} component={ProductForm} />
 						<Route exact path={PATHS.product} component={ProductIndex} />
 						<Route exact path={PATHS.friends} component={FriendsIndex} />
-						<Redirect to={PATHS.home} />
   					</section>
   				</div>
   				<LayoutFullFooter />
