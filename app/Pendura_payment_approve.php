@@ -10,6 +10,6 @@ class Pendura_payment_approve extends Model
     //
 
     public function pendura_payment(){
-    	return $this->belongsTo(Pendura_payment:class);
+    	return $this->belongsTo(Pendura_payment::class);
     }
 }
