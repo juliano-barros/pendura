@@ -13,9 +13,9 @@ class CreatePenduraPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pendura_payments', function (Blueprint $table) {
+        Schema::create('sale_payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pendura_id');
+            $table->integer('sale_id');
             $table->boolean('added_saler');
             $table->boolean('added_costumer');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreatePenduraPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pendura_payments');
+        Schema::dropIfExists('sale_payments');
     }
 }

@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Pendura\Login\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class LoginRequest
+ * @package Pendura\Login\Requests
+ */
 class LoginRequest extends FormRequest
 {
     /**

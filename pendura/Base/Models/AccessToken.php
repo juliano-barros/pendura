@@ -1,15 +1,22 @@
 <?php
 
-namespace App;
+namespace Pendura\Base\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use Pendura\User\Models\User;
 
+
+/**
+ * Class AccessToken
+ * @package Pendura\Base\Models
+ */
 class AccessToken extends Model
 {
     //
+    /**
+     * @var string
+     */
     protected $table = 'oauth_access_tokens';
-
 
     /**
      * AccessToken belongs to User.
@@ -18,10 +25,8 @@ class AccessToken extends Model
      */
     public function user()
     {
-    	// belongsTo(RelatedModel, foreignKey = user_id, keyOnRelatedModel = id)
-    	return $this->belongsTo(User::class);
+        // belongsTo(RelatedModel, foreignKey = user_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class);
     }
-
-
 
 }

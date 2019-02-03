@@ -3,23 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
-use App\AccessToken;
-use App\Repositories\ProfileRepository;
+use Pendura\User\Models\User;
+use Pendura\User\Repositories\ProfileRepository;
 
+/**
+ * Class ProfileController
+ * @package App\Http\Controllers
+ */
 class ProfileController extends Controller
 {
-    //
-
+    /**
+     * @var ProfileRepository
+     */
     private $profileRepository;
 
-    public function __construct( ProfileRepository $profile ){
+    /**
+     * ProfileController constructor.
+     * @param ProfileRepository $profile
+     */
+    public function __construct(ProfileRepository $profile ){
 
     	$this->profileRepository = $profile;
 
     }
 
-    public function profile( Request $request ){
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function profile(Request $request ){
     	$user = auth()->guard('api')->user();
     	$data = $user;
 
@@ -29,7 +41,11 @@ class ProfileController extends Controller
 
     }
 
-    public function updateProfile( Request $request ){
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function updateProfile(Request $request ){
 		
 		$user  = auth()->guard('api')->user();
 		$input = $request->all();
@@ -45,7 +61,11 @@ class ProfileController extends Controller
 
     }
 
-    public function updatePictureProfile( Request $request ){
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function updatePictureProfile(Request $request ){
 
 		$user  = auth()->guard('api')->user();
 

@@ -1,12 +1,16 @@
 <?php
 
-namespace App;
+namespace Pendura\Product\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Picture;
-use App\Repositories\ProductRepository;
-use App\User;
+use Pendura\Base\Models\Picture;
+use Pendura\Product\Repositories\ProductRepository;
+use Pendura\User\Models\User;
 
+/**
+ * Class Product
+ * @package Pendura\Product\Models
+ */
 class Product extends Model
 {
     //
@@ -42,6 +46,9 @@ class Product extends Model
 
     }
 
+    /**
+     * @return string
+     */
     public function pictureProduct(){
 
         if ( sizeof($this->pictures) > 0 )

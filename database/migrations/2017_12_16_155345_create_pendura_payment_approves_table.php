@@ -13,9 +13,9 @@ class CreatePenduraPaymentApprovesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pendura_payment_approves', function (Blueprint $table) {
+        Schema::create('sale_payment_approves', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pendura_payment_id');
+            $table->integer('sale_payment_id');
             $table->boolean('approved');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreatePenduraPaymentApprovesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pendura_payment_approves');
+        Schema::dropIfExists('sale_payment_approves');
     }
 }

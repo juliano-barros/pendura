@@ -1,9 +1,14 @@
 <?php
 
-namespace App;
+namespace Pendura\Base\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
+/**
+ * Class Picture
+ * @package Pendura\Base\Models
+ */
 class Picture extends Model{
 
     /**
@@ -26,11 +31,19 @@ class Picture extends Model{
 
 	}
 
-	public function fileName( String $path ){
+    /**
+     * @param String $path
+     * @return string
+     */
+    public function fileName(String $path ){
 		return $path . $this->name;
 	}
 
-	public function fileBase64( String $path ){
+    /**
+     * @param String $path
+     * @return string
+     */
+    public function fileBase64(String $path ){
 
 		$path = $this->fileName( $path );
 		$type = pathinfo($path, PATHINFO_EXTENSION);

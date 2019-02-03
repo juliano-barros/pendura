@@ -13,9 +13,9 @@ class CreateApprovesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Pendura_approves', function (Blueprint $table) {
+        Schema::create('Sales_approves', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pendura_id');
+            $table->integer('sale_id');
             $table->boolean('approved');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateApprovesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Pendura_approve');
+        Schema::dropIfExists('Sale_approve');
     }
 }

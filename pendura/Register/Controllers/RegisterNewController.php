@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Pendura\Register\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateRequest;
-use App\Repositories\UserRepository;
-use App\User;
+use Pendura\User\Models\User;
+use Pendura\User\Repositories\UserRepository;
 
 class RegisterNewController extends Controller
 {

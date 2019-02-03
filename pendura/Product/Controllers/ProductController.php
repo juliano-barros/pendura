@@ -1,23 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Pendura\Product\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\ProductRepository;
-use App\User;
-use App\Product;
+use Pendura\Product\Models\Product;
+use Pendura\Product\Repositories\ProductRepository;
 use Yajra\Datatables\Datatables;
 
+/**
+ * Class ProductController
+ * @package Pendura\Product\Controllers
+ */
 class ProductController extends Controller
 {
     //
 
+    /**
+     * @var ProductRepository
+     */
     private $productRepository;
 
-    public function __construct( ProductRepository $repoProd ){
+    /**
+     * ProductController constructor.
+     * @param ProductRepository $repoProd
+     */
+    public function __construct(ProductRepository $repoProd ){
     	$this->productRepository = $repoProd;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function index(Request $request){
 
     	$user= auth()->guard('api')->user();
@@ -32,6 +47,11 @@ class ProductController extends Controller
     	
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function show(Request $request, $id){
 
     	$product = Product::findOrFail($id);
@@ -42,7 +62,11 @@ class ProductController extends Controller
     	
     }
 
-    public function store( Request $request ){
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function store(Request $request ){
         
         $input = $request->all();
     	$product = $this->productRepository->create($input);
@@ -51,6 +75,11 @@ class ProductController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function destroy(Request $request, $id){
 
         $user = auth()->guard('api')->user();
@@ -61,7 +90,12 @@ class ProductController extends Controller
     	return response(["id"=>$id, "deleted" =>true ]);
     }
 
-    public function update( Request $request, $id ){
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function update(Request $request, $id ){
 
         $user = auth()->guard('api')->user();
 
@@ -74,6 +108,11 @@ class ProductController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function uploadPictureProduct(Request $request, $id){
 
 
@@ -84,6 +123,10 @@ class ProductController extends Controller
 
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function anyData(){
 
         $user = auth()->guard('api')->user();

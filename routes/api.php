@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,10 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::post('/login', 'LoginNewController@login');
-Route::post('/login/refresh', 'LoginNewController@refresh');
+Route::post('/login', 'LoginController@login');
+Route::post('/login/refresh', 'LoginController@refresh');
 
-Route::middleware('auth:api')->post('/login/isAlive', 'LoginNewController@isAlive');
+Route::middleware('auth:api')->post('/login/isAlive', 'LoginController@isAlive');
 Route::middleware('auth:api')->post('/profile/profile', 'ProfileController@profile');
 Route::middleware('auth:api')->post('/profile/updatePictureProfile', 'ProfileController@updatePictureProfile');
 Route::middleware('auth:api')->post('/profile/updateProfile', 'ProfileController@updateProfile');

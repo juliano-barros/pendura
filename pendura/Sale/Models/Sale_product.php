@@ -1,11 +1,14 @@
 <?php
 
-namespace App;
+namespace Pendura\Sale\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Pendura;
 
-class Pendura_product extends Model
+/**
+ * Class Sale_product
+ * @package Pendura\Sale\Models
+ */
+class Sale_product extends Model
 {
     //
     /**
@@ -16,14 +19,14 @@ class Pendura_product extends Model
     protected $fillable = ['price'];
 
     /**
-     * Pendura_product belongs to Pendura.
+     * Sale_product belongs to Sale.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function pendura()
     {
-    	// belongsTo(RelatedModel, foreignKey = pendura_id, keyOnRelatedModel = id)
-    	return $this->belongsTo(Pendura::class);
+        // belongsTo(RelatedModel, foreignKey = sale_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Sale::class);
     }
 
 }

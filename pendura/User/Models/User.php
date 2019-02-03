@@ -1,18 +1,23 @@
 <?php
 
-namespace App;
+namespace Pendura\User\Models;
 
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\AccessToken;
-use App\Repositories\ProfileRepository;
-use App\Product;
-use App\User_friends;
+use Pendura\Base\Models\AccessToken;
+use Pendura\Base\Models\Picture;
+use Pendura\Product\Models\Product;
+use Pendura\User\Repositories\ProfileRepository;
 
+
+/**
+ * Class User
+ * @package Pendura\User\Models
+ */
 class User extends Authenticatable
 {
-     use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +42,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function pictures(){
+    public function pictures()
+    {
 
         // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
         return $this->morphMany(Picture::class, 'picturable');
@@ -48,17 +54,22 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accessTokens(){
+    public function accessTokens()
+    {
 
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(AccessToken::class);
 
     }
 
-    public function pictureProfile(){
+    /**
+     * @return string
+     */
+    public function pictureProfile()
+    {
 
-        if ( sizeof($this->pictures) > 0 )
-            return $this->pictures[0]->fileBase64( ProfileRepository::IMG_PATH_NAME . $this->id . "/" );
+        if (sizeof($this->pictures) > 0)
+            return $this->pictures[0]->fileBase64(ProfileRepository::IMG_PATH_NAME . $this->id . "/");
 
         return "";
 
@@ -69,7 +80,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function products(){
+    public function products()
+    {
 
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(Product::class);

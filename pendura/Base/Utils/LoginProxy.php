@@ -1,28 +1,60 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Pendura\Base\Utils;
 
 use Illuminate\Foundation\Application;
 use App\Exceptions\InvalidCredentialsException;
-use App\Repositories\UserRepository;
+use Pendura\User\Repositories\UserRepository;
 
+
+/**
+ * Class LoginProxy
+ * @package Pendura\Base\Utils
+ */
 class LoginProxy
 {
+    /**
+     *
+     */
     const REFRESH_TOKEN = 'refreshToken';
 
+    /**
+     * @var mixed
+     */
     private $apiConsumer;
 
+    /**
+     * @var mixed
+     */
     private $auth;
 
+    /**
+     * @var mixed
+     */
     private $cookie;
 
+    /**
+     * @var mixed
+     */
     private $db;
 
+    /**
+     * @var mixed
+     */
     private $request;
 
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
-    public function __construct(Application $app, UserRepository $userRepository) {
+    /**
+     * LoginProxy constructor.
+     * @param Application $app
+     * @param UserRepository $userRepository
+     */
+    public function __construct(Application $app, UserRepository $userRepository)
+    {
         $this->userRepository = $userRepository;
 
         $this->apiConsumer = $app->make('apiconsumer');
@@ -35,8 +67,9 @@ class LoginProxy
     /**
      * Attempt to create an access token using user credentials
      *
-     * @param string $email
-     * @param string $password
+     * @param $email
+     * @param $password
+     * @return array
      */
     public function attemptLogin($email, $password)
     {
@@ -67,15 +100,16 @@ class LoginProxy
     /**
      * Proxy a request to the OAuth server.
      *
-     * @param string $grantType what type of grant type should be proxied
-     * @param array $data the data to send to the server
+     * @param $grantType
+     * @param array $data
+     * @return array
      */
     public function proxy($grantType, array $data = [])
     {
         $data = array_merge($data, [
-            'client_id'     => env('PASSWORD_CLIENT_ID'),
+            'client_id' => env('PASSWORD_CLIENT_ID'),
             'client_secret' => env('PASSWORD_CLIENT_SECRET'),
-            'grant_type'    => $grantType
+            'grant_type' => $grantType
         ]);
 
         $response = $this->apiConsumer->post('/oauth/token', $data);

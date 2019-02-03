@@ -13,12 +13,12 @@ class CreatePendurasTable extends Migration
      */
     public function up()
     {
-        Schema::create('penduras', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id_saler');
             $table->integer('user_id_costumer');
             $table->decimal('price');
-            $table->date('pendura_date');
+            $table->date('sale_date');
             $table->boolean('added_saler');
             $table->boolean('added_costumer');
             $table->timestamps();

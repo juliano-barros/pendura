@@ -13,9 +13,9 @@ class CreatePenduraProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pendura_product', function (Blueprint $table) {
+        Schema::create('sale_product', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pendura_id');
+            $table->integer('sale_id');
             $table->integer('product_id');
             $table->decimal('price');
             $table->timestamps();
