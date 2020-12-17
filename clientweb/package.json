@@ -29,7 +29,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "datatables.net": "^1.10.16",
+    "datatables.net": "^1.10.22",
     "jquery": "^3.2.1"
   }
 }
